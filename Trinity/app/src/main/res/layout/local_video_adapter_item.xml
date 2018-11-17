@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+    <RelativeLayout
+        android:id="@+id/videRelativeLayout"
+        android:layout_width="410px"
+        android:layout_height="235px"
+        android:padding="5px"
+        android:descendantFocusability="blocksDescendants"
+      >
+        <ImageView
+            android:id="@+id/videoThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:focusable="false"
+            android:src="@drawable/vp2"/>
+        <TextView
+            android:id="@+id/videoNameTextView"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/textSelect"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end"
+            />
+        <ImageView
+            android:id="@+id/videoPauseImageView"
+            android:layout_below="@+id/videoNameTextView"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:focusable="false"
+            android:src="@drawable/video_pause_imageview"/>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

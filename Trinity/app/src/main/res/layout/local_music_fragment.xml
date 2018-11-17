@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    >
+    <of.media.bq.widget.RoundRectImageView
+        android:id="@+id/prevMusicImageview"
+        android:layout_centerVertical="true"
+        android:layout_width="320px"
+        android:layout_height="320px"
+        android:src="@drawable/mp4"/>
+
+    <!--android:layout_toRightOf="@id/prevMusicImageview"-->
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginLeft="340px"
+       android:layout_toLeftOf="@+id/nextMusicImageview"
+       android:paddingRight="15px"
+       >
+       <of.media.bq.widget.RoundRectImageView
+           android:id="@+id/currentMusicImageview"
+           android:layout_centerVertical="true"
+           android:layout_marginLeft="30px"
+           android:layout_width="430px"
+           android:layout_height="430px"
+           android:src="@drawable/mp2"/>
+       <LinearLayout
+
+           android:layout_toRightOf="@+id/currentMusicImageview"
+           android:id="@+id/musicLinearLayout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_marginTop="20px"
+           android:gravity="center"
+           >
+
+           <of.media.bq.widget.AlwaysMarqueeTextView
+               android:id="@+id/musicTitle"
+               android:gravity="center"
+               android:layout_width="460px"
+               android:layout_height="wrap_content"
+               android:text="PHOTOGRAPHY"
+               android:singleLine="true"
+               android:paddingTop="60px"
+               android:ellipsize="marquee"
+               android:focusableInTouchMode="true"
+               android:scrollHorizontally="true"
+               android:marqueeRepeatLimit="marquee_forever"
+               android:focusable="true"
+               android:textSize="60px"
+               android:textStyle="bold"
+               android:textColor="@color/textSelect"/>
+
+
+           <of.media.bq.widget.AlwaysMarqueeTextView
+               android:id="@+id/singerName"
+               android:gravity="center"
+               android:layout_width="460px"
+               android:layout_height="wrap_content"
+               android:text="Cinematography motion"
+               android:singleLine="true"
+               android:ellipsize="marquee"
+               android:paddingTop="30px"
+               android:focusableInTouchMode="true"
+               android:scrollHorizontally="true"
+               android:marqueeRepeatLimit="marquee_forever"
+               android:focusable="true"
+               android:textStyle="bold"
+               android:textSize="50px"
+               android:textColor="@color/textNoSelect"/>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="horizontal"
+               android:gravity="center"
+               android:layout_marginTop="30px">
+               <ImageView
+                   android:id="@+id/prevImageView"
+                   android:layout_width="75px"
+                   android:layout_height="75px"
+                   android:clickable="true"
+                   android:src="@drawable/prev_music_imageview_selector"
+                   />
+               <ImageView
+                   android:id="@+id/playImageView"
+                   android:layout_marginLeft="140px"
+                   android:layout_marginRight="140px"
+                   android:clickable="true"
+                   android:layout_width="110px"
+                   android:layout_height="110px"
+                   android:src="@drawable/pause_imageview"
+                   />
+               <ImageView
+                   android:id="@+id/nextImageView"
+                   android:clickable="true"
+                   android:layout_width="75px"
+                   android:layout_height="75px"
+                   android:src="@drawable/next_music_imageview_selector"
+                   />
+           </LinearLayout>
+       </LinearLayout>
+       <SeekBar
+           android:id="@+id/musicSeekbar"
+           style="?android:attr/progressBarStyleHorizontal"
+           android:layout_alignParentBottom="true"
+           android:layout_width="match_parent"
+           android:layout_height="5px"
+           android:progress="0"
+           android:max="100"
+           android:progressDrawable="@drawable/bg_adjust_seek_bar"
+           android:thumb="@null"
+           android:layout_marginBottom="15px"
+           />
+   </RelativeLayout>
+
+    <of.media.bq.widget.RoundRectImageView
+        android:id="@+id/nextMusicImageview"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="320px"
+        android:layout_height="320px"
+        android:src="@drawable/mp5"/>
+</RelativeLayout>

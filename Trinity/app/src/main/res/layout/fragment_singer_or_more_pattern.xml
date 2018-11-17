@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="60px"
+    android:layout_width="wrap_content"
+    android:layout_height="400px">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/singleModeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="320px">
+        <ImageView
+            android:layout_centerInParent="true"
+            android:id="@+id/singleModeFlame"
+            android:layout_width="320px"
+            android:layout_height="320px"
+            android:src="@drawable/pic_choose"/>
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_width="240px"
+            android:layout_height="240px"
+            android:src="@drawable/icon_single_mode"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="单人模式"
+        android:textSize="40px"
+        android:textColor="@color/textSelect"/>
+</RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/moreModeLayout"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="150px"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="320px">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/moreModeFlame"
+                android:visibility="invisible"
+                android:layout_width="320px"
+                android:layout_height="320px"
+                android:src="@drawable/pic_choose"/>
+            <ImageView
+                android:layout_centerInParent="true"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:src="@drawable/icon_many_mode"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textSelect"
+            android:textSize="40px"
+            android:text="多人模式"/>
+    </RelativeLayout>
+</LinearLayout>
+</RelativeLayout>

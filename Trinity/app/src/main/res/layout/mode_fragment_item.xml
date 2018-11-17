@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:id="@+id/middleLayout"
+        android:layout_height="match_parent"
+        android:layout_width="400px"
+        >
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        >
+        <ImageView
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:id="@+id/bgmenu"
+            android:src="@drawable/bg_menu"
+            android:layout_marginTop="10px"
+            />
+        <RelativeLayout
+            android:id="@+id/rl_selectionpattern"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70px"
+            android:paddingLeft="30px"
+
+            >
+            <ImageView
+                android:id="@+id/iv_selectionpattern"
+
+                android:layout_width="388px"
+                android:layout_height="110px"
+                android:background="@drawable/bg_choose"
+
+                />
+            <ImageView
+                android:layout_marginTop="35px"
+                android:layout_marginLeft="45px"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:background="@drawable/check_mark"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_singleormoreselection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180px"
+            android:paddingLeft="40px"
+
+            >
+            <ImageView
+                android:id="@+id/iv_singleormoreselection"
+                android:layout_width="388px"
+                android:layout_height="110px"
+                android:background="@drawable/bg_choose"
+
+                />
+            <ImageView
+                android:layout_marginTop="35px"
+                android:layout_marginLeft="45px"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:background="@drawable/check_mark"
+
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_returnhome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300px"
+            android:paddingLeft="60px"
+
+            >
+            <ImageView
+                android:id="@+id/iv_returnhome"
+                android:layout_width="440px"
+                android:layout_height="140px"
+                android:src="@drawable/bg_choose"
+
+                />
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="40px"
+                android:layout_marginLeft="45px"
+                android:layout_marginTop="45px"
+                android:background="@drawable/check_mark"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_selectionpattern"
+                android:layout_marginTop="100px"
+                android:layout_marginLeft="140px"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/white_1"
+                android:textSize="36px"
+                android:text="选择模式"
+                />
+            <TextView
+                android:id="@+id/tv_singleormorepattern"
+                android:layout_marginTop="60px"
+                android:layout_marginLeft="150px"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="36px"
+                android:textColor="@color/white_1"
+                android:text="驾驶模式"
+                android:singleLine="true"
+
+                />
+            <TextView
+                android:id="@+id/tv_returnhome"
+                android:layout_marginTop="90px"
+                android:layout_marginLeft="150px"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="36px"
+                android:textColor="@color/white_1"
+                android:text="返回主页"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+<FrameLayout
+    android:id="@+id/modeFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+</FrameLayout>
+</LinearLayout>

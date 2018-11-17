@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/singleModeLeftLayout"
+        android:layout_width="400px"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/middleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/bgmenu"
+                    android:layout_width="150px"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/bg_menu" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_bluetooth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28px"
+                    android:paddingLeft="30px">
+
+                    <ImageView
+                        android:id="@+id/iv_bluetooth"
+                        android:layout_width="435px"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="0px"
+                        android:background="@drawable/bg_choose"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="40px"
+                        android:layout_marginTop="40px"
+                        android:background="@drawable/check_mark" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_heartrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="128px"
+                    android:paddingLeft="50px">
+
+                    <ImageView
+                        android:id="@+id/iv_heartrate"
+                        android:layout_width="435px"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="0px"
+                        android:background="@drawable/bg_choose"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="40px"
+                        android:layout_marginTop="40px"
+                        android:background="@drawable/check_mark"
+
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_interiorview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="228px"
+                    android:paddingLeft="50px">
+
+                    <ImageView
+                        android:id="@+id/iv_interiorview"
+                        android:layout_width="435px"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="0px"
+                        android:src="@drawable/bg_choose"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="40px"
+                        android:layout_marginTop="40px"
+                        android:background="@drawable/check_mark"
+
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_outsideview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="328px"
+                    android:paddingLeft="40px">
+
+                    <ImageView
+                        android:id="@+id/iv_outsideview"
+                        android:layout_width="435px"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="0px"
+                        android:src="@drawable/bg_choose"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="40px"
+                        android:layout_marginTop="40px"
+                        android:background="@drawable/check_mark"
+
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_carweichat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="428px"
+                    android:paddingLeft="0px">
+
+                    <ImageView
+                        android:id="@+id/iv_carweichat"
+                        android:layout_width="435px"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="0px"
+                        android:background="@drawable/bg_choose"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="50px"
+                        android:layout_marginTop="40px"
+                        android:background="@drawable/check_mark"
+
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_multimedia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="528px"
+                    android:paddingLeft="0px">
+
+                    <ImageView
+                        android:id="@+id/iv_multimedia"
+                        android:layout_width="445px"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="0px"
+                        android:background="@drawable/bg_choose"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="50px"
+                        android:layout_marginTop="40px"
+                        android:background="@drawable/check_mark"
+
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_return"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="620px"
+                    android:paddingLeft="0px">
+
+                    <ImageView
+                        android:id="@+id/iv_return"
+                        android:layout_width="435px"
+                        android:layout_height="120px"
+                        android:layout_marginLeft="0px"
+                        android:background="@drawable/bg_choose"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="50px"
+                        android:layout_marginTop="30px"
+                        android:background="@drawable/check_mark" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+              >
+
+                <TextView
+                    android:id="@+id/tv_bluetooth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="145px"
+                    android:layout_marginTop="70px"
+                    android:text="蓝牙电话"
+                    android:textColor="@color/white_1"
+                    android:textSize="36px" />
+
+                <TextView
+                    android:id="@+id/tv_heartrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="159px"
+                    android:layout_marginTop="170px"
+                    android:text="心率检测"
+                    android:textColor="@color/white_1"
+                    android:textSize="36px" />
+
+                <TextView
+                    android:id="@+id/tv_interiorview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="165px"
+                    android:layout_marginTop="260px"
+                    android:text="车内全景"
+                    android:textColor="@color/white_1"
+                    android:textSize="36px" />
+
+                <TextView
+                    android:id="@+id/tv_outsideview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="159px"
+                    android:layout_marginTop="360px"
+                    android:text="车外全景"
+                    android:textColor="@color/white_1"
+                    android:textSize="36px" />
+
+                <TextView
+                    android:id="@+id/tv_carweichat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="140px"
+                    android:layout_marginTop="470px"
+                    android:text="车机版微信"
+                    android:textColor="@color/white_1"
+                    android:textSize="36px" />
+
+                <TextView
+                    android:id="@+id/tv_multimedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="130px"
+                    android:layout_marginTop="560px"
+                    android:text="多媒体"
+                    android:textColor="@color/white_1"
+                    android:textSize="36px" />
+
+                <TextView
+                    android:id="@+id/tv_return"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120px"
+                    android:layout_marginTop="640px"
+                    android:text="返回"
+                    android:textColor="@color/white_1"
+                    android:textSize="36px" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_toRightOf="@+id/singleModeLeftLayout"
+        android:id="@+id/singleModeFragment"
+        android:layout_width="2200px"
+        android:layout_height="match_parent">
+    </FrameLayout>
+</RelativeLayout>
