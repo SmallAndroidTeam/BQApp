@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trinity</string>
+    <string name="app_name">ModeSelect</string>
 
     <!-- dialpad -->
     <string name="dialpad_0_number">0</string>

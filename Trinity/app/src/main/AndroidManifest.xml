@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="of.media.bq">
+    package="of.modeselect.bq">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="of.media.bq.activity.LoadingActivity"
+            android:name="of.modeselect.bq.activity.LoadingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:enabled="true"
             android:exported="true"
@@ -34,27 +34,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="of.media.bq.activity.MainActivity"
+            android:name="of.modeselect.bq.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
 
         <service
-            android:name="of.media.bq.service.MusicService"
+            android:name="of.modeselect.bq.service.MusicService"
             android:enabled="true"
             android:exported="true" />
 
         <service
-            android:name="of.media.bq.service.BluetoothService"
+            android:name="of.modeselect.bq.service.BluetoothService"
             android:enabled="true"
             android:exported="true" />
 
         <activity
-            android:name="of.media.bq.activity.PlayVideoActivity"
+            android:name="of.modeselect.bq.activity.PlayVideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
 
         <receiver
-            android:name="of.media.bq.broadcastReceiver.musicReceiver"
+            android:name="of.modeselect.bq.broadcastReceiver.musicReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -79,7 +79,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="of.media.bq.broadcastReceiver.BootBroadcastReceiver">
+        <receiver android:name="of.modeselect.bq.broadcastReceiver.BootBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.LAUNCHER" />

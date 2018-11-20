@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="of.meida.bq.activity.PlayVideoActivity"
+    tools:context="of.modeselect.bq.activity.PlayVideoActivity"
     android:background="@color/mediacontroller_bg">
 
     <VideoView

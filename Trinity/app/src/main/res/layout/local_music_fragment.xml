@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     >
-    <of.media.bq.widget.RoundRectImageView
+    <of.modeselect.bq.widget.RoundRectImageView
         android:id="@+id/prevMusicImageview"
         android:layout_centerVertical="true"
         android:layout_width="320px"
@@ -35,7 +35,7 @@
            android:gravity="center"
            >
 
-           <of.media.bq.widget.AlwaysMarqueeTextView
+           <of.modeselect.bq.widget.AlwaysMarqueeTextView
                android:id="@+id/musicTitle"
                android:gravity="center"
                android:layout_width="460px"
@@ -53,7 +53,7 @@
                android:textColor="@color/textSelect"/>
 
 
-           <of.media.bq.widget.AlwaysMarqueeTextView
+           <of.modeselect.bq.widget.AlwaysMarqueeTextView
                android:id="@+id/singerName"
                android:gravity="center"
                android:layout_width="460px"
@@ -115,7 +115,7 @@
            />
    </RelativeLayout>
 
-    <of.media.bq.widget.RoundRectImageView
+    <of.modeselect.bq.widget.RoundRectImageView
         android:id="@+id/nextMusicImageview"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
