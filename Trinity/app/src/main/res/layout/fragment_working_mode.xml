@@ -62,7 +62,6 @@
                 android:id="@+id/rightLiner"
                 android:layout_height="match_parent"
                 android:layout_width="280px"
-                android:layout_marginRight="@+id/middleLiner"
                 android:background="@color/white_1"
                 android:orientation="horizontal"
                 >

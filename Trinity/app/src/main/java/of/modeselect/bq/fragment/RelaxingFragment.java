@@ -18,7 +18,7 @@ import of.modeselect.bq.R;
 import of.modeselect.bq.activity.MainActivity;
 import of.modeselect.bq.saveData.ActivityCollector;
 
-public class RelaxingFragment extends Fragment implements View.OnClickListener, View.OnTouchListener {
+public class RelaxingFragment extends Fragment implements View.OnClickListener {
     private TextView tv_localleft;
     private TextView tv_onlineleft;
     private TextView tv_localright;
@@ -31,7 +31,6 @@ public class RelaxingFragment extends Fragment implements View.OnClickListener, 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
       View view=inflater.inflate(R.layout.fragment_relaxing,container,false);
         initView(view);
-        view.setOnTouchListener(this);
         initEvents();
         selectTab(1);
       return view;
@@ -84,14 +83,5 @@ public class RelaxingFragment extends Fragment implements View.OnClickListener, 
         }
     }
     
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
-            //通过调用MainActivity中的setFragment方法显示modeFragment
-            ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(0);
-          
-        }
-       
-        return false;
-    }
+ 
 }

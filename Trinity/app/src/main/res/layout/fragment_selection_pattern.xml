@@ -29,6 +29,7 @@
                         android:layout_width="400px"
                         android:layout_height="400px"
                         android:src="@drawable/pic_choose"
+                        android:visibility="invisible"
                         />
          <ImageView
              android:layout_centerInParent="true"

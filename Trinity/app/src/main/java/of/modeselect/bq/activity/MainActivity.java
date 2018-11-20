@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,12 +30,14 @@ import of.modeselect.bq.fragment.RelaxingFragment;
 
 import of.modeselect.bq.fragment.WorkingModeFragment;
 import of.modeselect.bq.saveData.ActivityCollector;
+import of.modeselect.bq.toast.OneToast;
 
 public class MainActivity extends FragmentActivity {
     private Fragment belowFragment,relaxingFragment,workingModeFragment;
     private TextView currentTimeTextView;
     private final static int UPDATE_TIME=0;//更新时间
     private Timer timer;
+    private final static int   MAX_DOUBLE_CLICK_INTERVAL_TIME=2000;//最大的响应双击间隔的时间
     public static TextView visibleTextView;
     @SuppressLint("HandlerLeak")
     private Handler mhander=new Handler(){
@@ -71,6 +74,30 @@ public class MainActivity extends FragmentActivity {
         },0,100);
         setFragment(0);
         ActivityCollector.addActivity(this);
+        initEvents();
+    }
+    
+    private long click_millis_time=0;//单击时的时间
+    @SuppressLint("ClickableViewAccessibility")
+    private void initEvents() {
+        visibleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long current_time=System.currentTimeMillis();
+                if(Math.abs(current_time-click_millis_time)>MAX_DOUBLE_CLICK_INTERVAL_TIME){
+                    OneToast.showMessage(MainActivity.this,"双击退出当前模式");
+                }else{
+                    final FragmentManager fragmentManager=getSupportFragmentManager();
+                    final FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                    hideAllFragment(fragmentTransaction);
+                    setFragment(0);
+                }
+                click_millis_time=current_time;
+            }
+        });
+    
+    
+
     }
     
     @Override
@@ -102,21 +129,19 @@ public class MainActivity extends FragmentActivity {
                 if(relaxingFragment==null) {
                     relaxingFragment = new RelaxingFragment();
                     fragmentTransaction.add(R.id.downFragment,relaxingFragment);
-                    setTextVisible();
                 }else {
-                    setTextVisible();
                     fragmentTransaction.show(relaxingFragment);
                 }
+                setTextVisible();
                 break;
-            case 3:
+            case 2:
                 if(workingModeFragment==null) {
                     workingModeFragment = new WorkingModeFragment();
                     fragmentTransaction.add(R.id.downFragment,workingModeFragment);
-                    setTextVisible();
                 }else {
-                    setTextVisible();
                     fragmentTransaction.show(workingModeFragment);
                 }
+                setTextVisible();
                 break;
             default:
                 break;
@@ -131,11 +156,13 @@ public class MainActivity extends FragmentActivity {
         if(relaxingFragment!=null){
             fragmentTransaction.hide(relaxingFragment);
         }
+        if(workingModeFragment!=null){
+            fragmentTransaction.hide(workingModeFragment);
+        }
     }
  
     public  static void setTextVisible(){
         visibleTextView.setVisibility(View.VISIBLE);
-        
     }
     public  static void setTextInisible(){
         visibleTextView.setVisibility(View.INVISIBLE);
