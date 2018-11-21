@@ -9,10 +9,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.transition.ArcMotion;
 import android.transition.ChangeBounds;
+import android.transition.Fade;
+import android.transition.Transition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -29,15 +33,19 @@ public class LocalFragment extends Fragment implements View.OnClickListener {
     private TextView musicTextView;
     private TextView videoTextView;
     private TextView galleryTextView;
-    private TableLayout slideLine;
+
     private Fragment localMusicFragment,localVideoFragment,localGalleryFragment;
+    private ImageView localMusicUnderline;
+    private ImageView localVideoUnderline;
+    private ImageView localGalleryUnderline;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.local_fragment,container,false);
         initView(view);
         initListener();
-        setTab(0);
+           setTab(0);
         return view;
     }
 
@@ -52,10 +60,9 @@ public class LocalFragment extends Fragment implements View.OnClickListener {
         musicTextView = view.findViewById(R.id.localMusicTextView);
         videoTextView = view.findViewById(R.id.localVideoTextView);
         galleryTextView = view.findViewById(R.id.localGalleryTextView);
-        slideLine = view.findViewById(R.id.localSlideLine);
-       ViewGroup.LayoutParams layoutParams=  slideLine.getLayoutParams();
-       layoutParams.width= DensityUtil.getWidth(musicTextView);
-       slideLine.setLayoutParams(layoutParams);
+        localMusicUnderline = view.findViewById(R.id.localMusicUnderline);
+        localVideoUnderline = view.findViewById(R.id.localVideoUnderline);
+        localGalleryUnderline = view.findViewById(R.id.localGalleryUnderline);
     }
 
     @Override
@@ -80,22 +87,13 @@ public class LocalFragment extends Fragment implements View.OnClickListener {
     //index=2：选中图片
     public void setTab(int index){
         final      FragmentManager fragmentManager= this.getFragmentManager();
+        assert fragmentManager != null;
         final FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction().setCustomAnimations(R.anim.card_flip_right_in,R.anim.card_flip_left_out,R.anim.card_flip_left_in,R.anim.card_flip_right_out);
         hideAllFragment(fragmentTransaction);
-        final LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) slideLine.getLayoutParams();
-
-    final   ChangeBounds changeBounds=new ChangeBounds();
-      changeBounds.setDuration(800);
-      changeBounds.setPathMotion(new ArcMotion());
-
-       TransitionManager.beginDelayedTransition((ViewGroup) slideLine.getParent(),changeBounds);
-        setTextViewColorNoSelect();
+        setTextViewColorAndShowUnderLineByIndex(index);
      switch (index){
          case 0:
              musicTextView.setTextColor(getResources().getColor(R.color.textSelect));
-             int left=musicTextView.getLeft();
-             layoutParams.leftMargin=left;
-             slideLine.setLayoutParams(layoutParams);
              if(localMusicFragment==null){
                  localMusicFragment=new LocalMusicFragment();
                  fragmentTransaction.add(R.id.localFrameLayout,localMusicFragment);
@@ -105,9 +103,6 @@ public class LocalFragment extends Fragment implements View.OnClickListener {
              break;
          case  1:
              videoTextView.setTextColor(getResources().getColor(R.color.textSelect));
-             int  left1=videoTextView.getLeft();
-             layoutParams.leftMargin=left1;
-             slideLine.setLayoutParams(layoutParams);
              if(localVideoFragment==null){
                  localVideoFragment=new LocalVideoFragment();
                  fragmentTransaction.add(R.id.localFrameLayout,localVideoFragment);
@@ -118,9 +113,6 @@ public class LocalFragment extends Fragment implements View.OnClickListener {
              break;
          case 2:
              galleryTextView.setTextColor(getResources().getColor(R.color.textSelect));
-             int left2=galleryTextView.getLeft();
-             layoutParams.leftMargin=left2;
-             slideLine.setLayoutParams(layoutParams);
              if(localGalleryFragment==null){
                  localGalleryFragment=new LocalGalleryFragment();
                  fragmentTransaction.add(R.id.localFrameLayout,localGalleryFragment);
@@ -133,11 +125,47 @@ public class LocalFragment extends Fragment implements View.OnClickListener {
      }
      fragmentTransaction.commit();
     }
-    //设置音乐、视频、图片的字体颜色为为选中的颜色
-    public void setTextViewColorNoSelect(){
+
+    /**
+     *
+     * @param index
+     * index=0;选中音乐时
+     * index=1;选中视频时
+     * index=2;选中图片时
+     */
+    public void setTextViewColorAndShowUnderLineByIndex(int index){
      musicTextView.setTextColor(getResources().getColor(R.color.textNoSelect));
         videoTextView.setTextColor(getResources().getColor(R.color.textNoSelect));
         galleryTextView.setTextColor(getResources().getColor(R.color.textNoSelect));
+        final Fade fade=new Fade();
+        TransitionManager.beginDelayedTransition((ViewGroup) localMusicUnderline.getParent(),fade);
+        TransitionManager.beginDelayedTransition((ViewGroup) localVideoUnderline.getParent(),fade);
+        TransitionManager.beginDelayedTransition((ViewGroup) localGalleryUnderline.getParent(),fade);
+        localMusicUnderline.setVisibility(View.INVISIBLE);
+        localVideoUnderline.setVisibility(View.INVISIBLE);
+        localGalleryUnderline.setVisibility(View.INVISIBLE);
+        switch (index){
+            case 0:
+                musicTextView.setTextColor(0xffffffff);//100%透明度，颜色为#ffffff
+                videoTextView.setTextColor(0x80ffffff);//50%透明度，颜色为#ffffff
+                galleryTextView.setTextColor(0x80ffffff);
+                localMusicUnderline.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                musicTextView.setTextColor(0x80ffffff);
+                videoTextView.setTextColor(0xffffffff);
+                galleryTextView.setTextColor(0x80ffffff);
+                localVideoUnderline.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                musicTextView.setTextColor(0x80ffffff);
+                videoTextView.setTextColor(0x80ffffff);
+                galleryTextView.setTextColor(0xffffffff);
+                localGalleryUnderline.setVisibility(View.VISIBLE);
+                break;
+                default:
+                    break;
+        }
     }
 
     public void hideAllFragment(FragmentTransaction fragmentTransaction){

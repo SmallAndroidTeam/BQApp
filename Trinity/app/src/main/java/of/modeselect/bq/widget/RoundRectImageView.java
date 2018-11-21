@@ -44,7 +44,7 @@ private Paint paint;
         Drawable drawable=getDrawable();
         if(drawable!=null){
             Bitmap bitmap=((BitmapDrawable)drawable).getBitmap();
-            Bitmap b=getRoundBitmap(bitmap,45);
+            Bitmap b=getRoundBitmap(bitmap,20);
             final Rect rectSrc=new Rect(0,0,b.getWidth(),b.getHeight());
             final Rect rectDest=new Rect(0,0,getWidth(),getHeight());
             paint.reset();

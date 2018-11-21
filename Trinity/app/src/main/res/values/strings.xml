@@ -14,5 +14,7 @@
     <string name="dialpad_9_number">9</string>
     <string name="dialpad_star_number">*</string>
     <string name="dialpad_pound_number">#</string>
+    <string name="online">在线</string>
+    <string name="local">本地</string>
 
 </resources>

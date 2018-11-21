@@ -13,125 +13,98 @@
         >
         <RelativeLayout
             android:id="@+id/left"
-            android:background="#fff"
             android:layout_width="350px"
             android:layout_height="match_parent">
 
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/right"
-            android:background="@color/colorAccent"
             android:layout_width="350px"
             android:layout_alignParentRight="true"
             android:layout_height="match_parent">
         </RelativeLayout>
         <RelativeLayout
-            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_toRightOf="@+id/left"
             android:layout_toLeftOf="@+id/right"
-            android:layout_width="match_parent"
-            android:id="@+id/middle"
-            android:layout_height="match_parent"
             >
             <LinearLayout
-                android:id="@+id/leftlinearlayout"
-                android:layout_height="match_parent"
-                android:layout_width="280px"
-                android:background="@color/white_1"
-                android:orientation="horizontal"
-                >
-                <LinearLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="100px"
-                    android:layout_marginTop="124px"
-                    android:orientation="vertical"
-                    >
-                    <TextView
-                        android:id="@+id/tv_onlineleft"
-                        android:layout_width="100px"
-                        android:layout_height="60px"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="在线"
-                        android:textSize="40px"
-                        />
-                    <TextView
-                        android:id="@+id/tv_localleft"
-                        android:layout_marginTop="30px"
-                        android:layout_width="100px"
-                        android:layout_height="60px"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="本地"
-                        android:textSize="40px"
-                        />
-                </LinearLayout>
-                <RelativeLayout
+                android:id="@+id/leftMenu"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+              <TextView
+                  android:id="@+id/leftOnlinebutton"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/online"
+                  android:textColor="#ffffff"
+                  android:layout_marginTop="140px"
+                  android:textSize="36px"/>
+                <TextView
+                    android:id="@+id/leftLocalbutton"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/iv_leftImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        />
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:text="@string/local"
+                    android:textSize="36px"
+                    android:layout_marginTop="62px"
+                    android:textColor="#ffffff"/>
             </LinearLayout>
-
+              <ImageView
+                  android:id="@+id/leftMenuLiner"
+                  android:layout_toRightOf="@+id/leftMenu"
+                  android:layout_width="134px"
+                  android:layout_marginLeft="6px"
+                  android:layout_marginTop="35px"
+                  android:layout_height="match_parent"
+                  android:scaleType="fitXY"
+                  android:src="@drawable/bg_online"
+                  android:layout_marginBottom="85px"/>
             <LinearLayout
-                android:id="@+id/rightLinerLayout"
-                android:layout_height="match_parent"
-                android:layout_width="280px"
-                android:layout_alignParentRight="true"
-                android:background="@color/white_1"
-                android:orientation="horizontal"
-                >
-
-                <RelativeLayout
-
-                    android:layout_width="170px"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:id="@+id/iv_rightImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_marginLeft="30px"
-                    android:layout_height="match_parent"
-                    android:layout_width="100px"
-                    android:layout_marginTop="126px"
-                    android:orientation="vertical"
-                    >
-                    <TextView
-                        android:id="@+id/tv_onlineright"
-                        android:layout_width="100px"
-                        android:layout_height="60px"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="在线"
-                        android:textSize="40px"
-                        />
-                    <TextView
-                        android:id="@+id/tv_localright"
-                        android:layout_marginTop="30px"
-                        android:layout_width="100px"
-                        android:layout_height="60px"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="本地"
-                        android:textSize="40px"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-            <FrameLayout
-                android:id="@+id/middleLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/leftlinearlayout"
-                android:layout_toLeftOf="@+id/rightLinerLayout"
-                >
-            </FrameLayout>
+                android:layout_toRightOf="@+id/leftMenuLiner"
+                android:layout_toLeftOf="@+id/rightMenuLiner">
+                <FrameLayout
+                    android:id="@+id/multimediaLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                </FrameLayout>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/rightMenuLiner"
+                android:layout_toLeftOf="@+id/rightMenu"
+                android:layout_width="134px"
+                android:layout_height="match_parent"
+                android:layout_marginTop="35px"
+                android:layout_marginRight="6px"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_rinternet"/>
+            <LinearLayout
+                android:id="@+id/rightMenu"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/rightOnlinebutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/online"
+                    android:textColor="#ffffff"
+                    android:layout_marginTop="140px"
+                    android:textSize="36px"/>
+                <TextView
+                    android:id="@+id/rightLocalbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/local"
+                    android:textSize="36px"
+                    android:layout_marginTop="62px"
+                    android:textColor="#ffffff"/>
+            </LinearLayout>
 
         </RelativeLayout>
 

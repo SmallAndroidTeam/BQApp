@@ -45,16 +45,14 @@ public class LocalVideoFragment extends Fragment {
         return view;
     }
 
-
-
-
-
     private void initData() {
 
         List<Video> videoList=initVideoList();
         SaveData.setLocalVideoList(videoList);
         localVideoAdapter = new LocalVideoAdapter(videoList);
         localVideoGridView.setNumColumns(4);
+        localVideoGridView.setVerticalSpacing(20);
+        localVideoGridView.setHorizontalSpacing(20);
         localVideoGridView.setAdapter(localVideoAdapter);
     }
   private List<Video> initVideoList(){

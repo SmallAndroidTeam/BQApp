@@ -23,8 +23,8 @@ import java.util.List;
 public class LocalGalleryAdapter extends BaseAdapter{
   private Context context;
    private List<Gallery> galleryList=new ArrayList<>();
-    public final static int GALLERY_WIDTH=113;//图片的宽度(单位dp）
-    public final static int GALLERY_Height=113;//图片的高度(单位dp）
+    public final static int GALLERY_WIDTH=220;//图片的宽度(单位px）
+    public final static int GALLERY_Height=220;//图片的高度(单位px）
     public LocalGalleryAdapter(Context context, List<Gallery> galleryList) {
         this.context = context;
         this.galleryList = galleryList;
@@ -67,7 +67,7 @@ public class LocalGalleryAdapter extends BaseAdapter{
           Gallery gallery=galleryList.get(i);
         if(gallery.getThumbnail()==null){
             gallery.setThumbnail(GetThumbnail.getImageThumbnailById(context.getResources(),galleryList.get(i).getGalleryAddress(),
-                    DensityUtil.dip2px(context,GALLERY_WIDTH), DensityUtil.dip2px(context,GALLERY_Height)));
+                   GALLERY_WIDTH, GALLERY_Height));
             galleryList.set(i,gallery);
         }
         viewHolder.galleryImageview.setImageBitmap(gallery.getThumbnail());

@@ -10,10 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Objects;
+
 import of.modeselect.bq.R;
 
 public class BelowFragment  extends Fragment {
-    private Fragment modeFragment,singleModeFragment,relaxingFragment;
+    private Fragment modeFragment,drivingModeFragment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,7 +30,7 @@ public class BelowFragment  extends Fragment {
      * type=1:显示singleModeFragment
      */
     public void setFragment(int type){
-        final FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+        final FragmentManager fragmentManager= Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         hideAllFragment(fragmentTransaction);
         switch (type){
@@ -39,22 +41,16 @@ public class BelowFragment  extends Fragment {
                 }else{
                     fragmentTransaction.show(modeFragment);
                 }
+                
                 break;
             case 1:
-                if(singleModeFragment==null){
-                    singleModeFragment=new SingleModeFragment();
-                    fragmentTransaction.add(R.id.mainFragment,singleModeFragment);
+                if(drivingModeFragment==null){
+                    drivingModeFragment=new DrivingModeFragment();
+                    fragmentTransaction.add(R.id.mainFragment,drivingModeFragment);
                 }else{
-                    fragmentTransaction.show(singleModeFragment);
+                    fragmentTransaction.show(drivingModeFragment);
                 }
-                break;
-            case 2:
-                if(relaxingFragment!=null) {
-                    relaxingFragment = new RelaxingFragment();
-                    fragmentTransaction.add(R.id.downFragment,relaxingFragment);
-                }else {
-                    fragmentTransaction.show(relaxingFragment);
-                }
+                
                 break;
             default:
                 break;
@@ -66,11 +62,8 @@ public class BelowFragment  extends Fragment {
         if(modeFragment!=null){
             fragmentTransaction.hide(modeFragment);
         }
-        if(singleModeFragment!=null){
-            fragmentTransaction.hide(singleModeFragment);
-        }
-        if(relaxingFragment!=null){
-            fragmentTransaction.hide(relaxingFragment);
+        if(drivingModeFragment!=null){
+            fragmentTransaction.hide(drivingModeFragment);
         }
     }
 }

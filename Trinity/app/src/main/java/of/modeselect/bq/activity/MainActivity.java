@@ -29,6 +29,7 @@ import of.modeselect.bq.fragment.BelowFragment;
 import of.modeselect.bq.fragment.RelaxingFragment;
 
 import of.modeselect.bq.fragment.WorkingModeFragment;
+import of.modeselect.bq.localInformation.App;
 import of.modeselect.bq.saveData.ActivityCollector;
 import of.modeselect.bq.toast.OneToast;
 
@@ -75,6 +76,7 @@ public class MainActivity extends FragmentActivity {
         setFragment(0);
         ActivityCollector.addActivity(this);
         initEvents();
+        App.sContext=this;
     }
     
     private long click_millis_time=0;//单击时的时间
@@ -95,9 +97,9 @@ public class MainActivity extends FragmentActivity {
                 click_millis_time=current_time;
             }
         });
-    
-    
-
+        
+        
+        
     }
     
     @Override
@@ -134,7 +136,7 @@ public class MainActivity extends FragmentActivity {
                 }
                 setTextVisible();
                 break;
-            case 2:
+            case 2://切换到工作模式
                 if(workingModeFragment==null) {
                     workingModeFragment = new WorkingModeFragment();
                     fragmentTransaction.add(R.id.downFragment,workingModeFragment);
@@ -143,6 +145,23 @@ public class MainActivity extends FragmentActivity {
                 }
                 setTextVisible();
                 break;
+            case 3://切换到驾驶模式
+                if(belowFragment==null){
+                    belowFragment=new BelowFragment();
+                    fragmentTransaction.add(R.id.downFragment,belowFragment);
+                }else{
+                    fragmentTransaction.show(belowFragment);
+                }
+                ((BelowFragment)belowFragment).setFragment(1);
+                break;
+            case 4://切换到驾驶模式
+                if(belowFragment==null){
+                    belowFragment=new BelowFragment();
+                    fragmentTransaction.add(R.id.downFragment,belowFragment);
+                }else{
+                    fragmentTransaction.show(belowFragment);
+                }
+                ((BelowFragment)belowFragment).setFragment(0);
             default:
                 break;
         }
@@ -160,12 +179,12 @@ public class MainActivity extends FragmentActivity {
             fragmentTransaction.hide(workingModeFragment);
         }
     }
- 
+    
     public  static void setTextVisible(){
         visibleTextView.setVisibility(View.VISIBLE);
     }
     public  static void setTextInisible(){
         visibleTextView.setVisibility(View.INVISIBLE);
     }
-   
+    
 }

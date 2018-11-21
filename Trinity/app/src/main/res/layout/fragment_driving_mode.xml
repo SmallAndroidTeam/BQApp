@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
     <RelativeLayout
-        android:id="@+id/middleLayout"
+        android:id="@+id/middleRelativeLayout"
         android:layout_height="match_parent"
         android:layout_width="400px"
         >
@@ -15,25 +16,22 @@
             <ImageView
                 android:layout_width="150px"
                 android:layout_height="wrap_content"
-                android:id="@+id/bgmenu"
+                android:id="@+id/bg_menu"
                 android:src="@drawable/bg_menu"
 
                 />
             <RelativeLayout
-                android:id="@+id/rl_selectionpattern"
+                android:id="@+id/rl_drivingmode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70px"
                 android:paddingLeft="30px"
-
                 >
                 <ImageView
-                    android:id="@+id/iv_selectionpattern"
-
+                    android:id="@+id/iv_drivingmode"
                     android:layout_width="388px"
                     android:layout_height="110px"
                     android:background="@drawable/bg_choose"
-
                     />
                 <ImageView
                     android:layout_marginTop="35px"
@@ -45,7 +43,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rl_returnhome"
+                android:id="@+id/rl_returnModeFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="180px"
@@ -53,7 +51,7 @@
 
                 >
                 <ImageView
-                    android:id="@+id/iv_returnhome"
+                    android:id="@+id/iv_returnModeFragment"
                     android:layout_width="388px"
                     android:layout_height="110px"
                     android:background="@drawable/bg_choose"
@@ -75,32 +73,31 @@
             android:orientation="vertical"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/tv_selectionpattern"
+                android:id="@+id/tv_drivingmode"
                 android:layout_marginTop="100px"
                 android:layout_marginLeft="140px"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:textColor="@color/white_1"
                 android:textSize="36px"
-                android:text="选择模式"
+                android:text="驾驶模式"
                 />
             <TextView
-                android:id="@+id/tv_returnhome"
+                android:id="@+id/tv_returnModeFragment"
                 android:layout_marginTop="60px"
                 android:layout_marginLeft="150px"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:textSize="36px"
                 android:textColor="@color/white_1"
-                android:text="返回主页"
+                android:text="返回"
                 android:singleLine="true"
-
                 />
 
         </LinearLayout>
     </RelativeLayout>
     <FrameLayout
-        android:id="@+id/modeFragment"
+        android:id="@+id/drivingFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>

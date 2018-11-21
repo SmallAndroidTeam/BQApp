@@ -59,7 +59,7 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
     }
     
     private void init(View view) {
-       
+        
         workImageView=view.findViewById(R.id.iv_work);
         relaxImageView=view.findViewById(R.id.iv_relax);
         steeringImageView=view.findViewById(R.id.iv_steeringwheel);
@@ -69,7 +69,7 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
         choose_relax = view.findViewById(R.id.choose_relax);
         choose_steer = view.findViewById(R.id.choose_steer);
         choose_steam = view.findViewById(R.id.choose_steam);
-    
+        
     }
     private void setTextViewAlphaChange(View view){
         Animation animation=new AlphaAnimation(0.5f,1.0f);
@@ -84,53 +84,57 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
     }
     @Override
     public void onClick(View v) {
-      
+        
         addAnimation(choose_work);
         addAnimation(choose_relax);
         addAnimation(choose_steer);
         addAnimation(choose_steam);
-         switch(v.getId()){
-             case R.id.iv_relax:
-                 setTextViewAlphaChange(relaxImageView);
-                  choose_relax.setVisibility(View.VISIBLE);
-                  choose_work.setVisibility(View.INVISIBLE);
-                  choose_steam.setVisibility(View.INVISIBLE);
-                  choose_steer.setVisibility(View.INVISIBLE);
+        switch(v.getId()){
+            case R.id.iv_relax:
+                setTextViewAlphaChange(relaxImageView);
+                choose_relax.setVisibility(View.VISIBLE);
+                choose_work.setVisibility(View.INVISIBLE);
+                choose_steam.setVisibility(View.INVISIBLE);
+                choose_steer.setVisibility(View.INVISIBLE);
                 
-                 Log.i("selectionPattern",
-                         String.valueOf("//"+ ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)));
-                 if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
-                     //通过调用MainActivity中的setFragment方法显示modeFragment
-                     ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(1);
-                 }
+                Log.i("selectionPattern",
+                        String.valueOf("//"+ ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)));
+                if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
+                    //通过调用MainActivity中的setFragment方法显示modeFragment
+                    ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(1);
+                }
 //                 Intent intent=new Intent(getActivity(), RelaxingActivity.class);
 //                 startActivity(intent);
-                 break;
-             case R.id.iv_work:
-                 setTextViewAlphaChange(workImageView);
-                 choose_relax.setVisibility(View.INVISIBLE);
-                 choose_work.setVisibility(View.VISIBLE);
-                 choose_steam.setVisibility(View.INVISIBLE);
-                 choose_steer.setVisibility(View.INVISIBLE);
-                 if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
-                     //通过调用MainActivity中的setFragment方法显示modeFragment
-                     ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(2);
-                 }
-                 break;
-             case R.id.iv_steamingmedia:
-                 setTextViewAlphaChange(steamingImageView);
-                 choose_relax.setVisibility(View.INVISIBLE);
-                 choose_work.setVisibility(View.INVISIBLE);
-                 choose_steam.setVisibility(View.VISIBLE);
-                 choose_steer.setVisibility(View.INVISIBLE);
-                 break;
-             case R.id.iv_steeringwheel:
-                 setTextViewAlphaChange(steeringImageView);
-                 choose_relax.setVisibility(View.INVISIBLE);
-                 choose_work.setVisibility(View.INVISIBLE);
-                 choose_steam.setVisibility(View.INVISIBLE);
-                 choose_steer.setVisibility(View.VISIBLE);
-                 break;
-         }
+                break;
+            case R.id.iv_work:
+                setTextViewAlphaChange(workImageView);
+                choose_relax.setVisibility(View.INVISIBLE);
+                choose_work.setVisibility(View.VISIBLE);
+                choose_steam.setVisibility(View.INVISIBLE);
+                choose_steer.setVisibility(View.INVISIBLE);
+                if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
+                    //通过调用MainActivity中的setFragment方法显示modeFragment
+                    ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(2);
+                }
+                break;
+            case R.id.iv_steamingmedia:
+                setTextViewAlphaChange(steamingImageView);
+                choose_relax.setVisibility(View.INVISIBLE);
+                choose_work.setVisibility(View.INVISIBLE);
+                choose_steam.setVisibility(View.VISIBLE);
+                choose_steer.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.iv_steeringwheel:
+                setTextViewAlphaChange(steeringImageView);
+                choose_relax.setVisibility(View.INVISIBLE);
+                choose_work.setVisibility(View.INVISIBLE);
+                choose_steam.setVisibility(View.INVISIBLE);
+                choose_steer.setVisibility(View.VISIBLE);
+                if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
+                    //通过调用MainActivity中的setFragment方法显示DrivingFragment
+                    ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(3);
+                }
+                break;
+        }
     }
 }

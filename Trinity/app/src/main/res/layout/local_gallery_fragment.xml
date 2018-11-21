@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:layout_marginTop="5px" android:paddingRight="0px"
+    android:layout_marginTop="30px" android:paddingLeft="30px"
  >
     <GridView
-
         android:id="@+id/localGalleryGridView"
-        android:layout_width="match_parent"
+        android:layout_width="2380px"
         android:layout_height="match_parent"
-        android:verticalSpacing="8px"
-        android:horizontalSpacing="8px"
         >
     </GridView>
 

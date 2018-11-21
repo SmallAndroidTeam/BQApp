@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:layout_marginTop="5dp" android:paddingRight="10dp">
+    android:paddingTop="30px" android:paddingLeft="30px"
+
+ >
+  <!--android:verticalSpacing="20px"-->
+  <!--android:horizontalSpacing="20px"-->
   <GridView
-
       android:id="@+id/localVideoGridView"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:verticalSpacing="8dp"
-      android:horizontalSpacing="8dp"
-      >
+      android:layout_width="1620px"
+      android:layout_height="wrap_content"
 
+      >
   </GridView>
    <!--<RelativeLayout-->
        <!--android:id="@+id/videRelativeLayout"-->

@@ -84,7 +84,7 @@ public class LocalVideoAdapter extends BaseAdapter {
           viewHolder.videoNameTextView.setText(videoList.get(i).getVideoName());
 
         if(i==position){
-            viewHolder.videRelativeLayout.setBackgroundResource(R.drawable.video_image_frame);
+            viewHolder.videRelativeLayout.setBackgroundResource(R.drawable.bg_video_choose);
             viewHolder.videoNameTextView.setVisibility(View.VISIBLE);
 
         }else{

@@ -20,16 +20,17 @@ import android.util.Log;
 import android.widget.MediaController;
 import android.widget.RemoteViews;
 
-import of.modeselect.bq.R;
-import of.modeselect.bq.bean.Music;
-import of.modeselect.bq.localInformation.MusicIconLoader;
-import of.modeselect.bq.toast.OneToast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import of.modeselect.bq.R;
+import of.modeselect.bq.bean.Music;
+import of.modeselect.bq.localInformation.MusicIconLoader;
+import of.modeselect.bq.toast.OneToast;
 
 
 public class MusicService extends Service {
@@ -52,7 +53,8 @@ public class MusicService extends Service {
     public final static String UNFAVOUR_ACTION="music.unfavour";//取消收藏
     public final static String FAVOUROPEN_ACTION="music.favour.open";//打开收藏列表
     public final static String UNFAVOURCLOSE_ACTION="music.unfavour.close";//关闭收藏列表
-    public final  static String SEND_MUSIC_SERVICE_FLAG="UserOperation";//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
+    public final static String FLAG="autoplay";//自动播放的标志
+    public final static String TAG="bq111";
     private  static  MediaPlayer mMediaPlayer;
     private  static List<Music> musicList=new ArrayList<>();//存储播放的音乐列表
     private static int currentPosition=-1;//设置默认的播放下标
@@ -65,20 +67,19 @@ public class MusicService extends Service {
     public static List<Music> getMusicList() {
         return musicList;
     }
-    
+
     public static void setmControl(Control mControl) {
         MusicService.mControl = mControl;
     }
-    
+
     public static void setMusicList(List<Music> musicList) {
         MusicService.musicList = musicList;
     }
-    
+
     public static int getCurrentPosition() {
         return currentPosition;
     }
-    public final static String FLAG="autoplay";//自动播放的标志
-    public final static String TAG="bq111";
+
     public static void setCurrentPosition(int currentPosition) {
         MusicService.currentPosition = currentPosition;
     }
@@ -87,7 +88,7 @@ public class MusicService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent!=null&&intent.getAction()!=null){
-                handleCommandIntent(intent,1);
+                handleCommandIntent(intent);
             }
         }
     };
@@ -111,17 +112,17 @@ public class MusicService extends Service {
             e.printStackTrace();
         }
     }
-    
-    
+
+
     public MusicService() {
     }
-    
+
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -129,18 +130,12 @@ public class MusicService extends Service {
             mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
-                    
-                    int position=currentPosition;
-                    if(mControl!=null){
-                        mControl.autoPlay();
-                    }else{
-                        nextMusic(FLAG,null);
-                    }
+                    nextMusic(FLAG);
                 }
             });
         }
 
-        widgetRemoteViews=new RemoteViews(getPackageName(),R.layout.notification);
+        widgetRemoteViews=new RemoteViews(getPackageName(), R.layout.notification);
         notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         //注册前台服务广播
         final  IntentFilter intentFilter=new IntentFilter();
@@ -150,7 +145,7 @@ public class MusicService extends Service {
         intentFilter.addAction(STOP_ACTION);
         registerReceiver(foregroundIntentReceiver,intentFilter);
     }
-    
+
 
     //初始化前台服务
     private  boolean initNotification(){
@@ -185,7 +180,7 @@ public class MusicService extends Service {
         }
 
         //设置前台绑定事件
-         Intent toggleIntent=new Intent(TOGGLEPAUSE_ACTION);
+        Intent toggleIntent=new Intent(TOGGLEPAUSE_ACTION);
         PendingIntent togglePItent=PendingIntent.getBroadcast(ForegroundContext,0,toggleIntent,0);
         widgetRemoteViews.setOnClickPendingIntent(R.id.widget_play,togglePItent);
 
@@ -203,35 +198,35 @@ public class MusicService extends Service {
 
 
         final  Intent nowPlayingIntent=new Intent(Intent.ACTION_MAIN);
-         nowPlayingIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-          nowPlayingIntent.setComponent(new ComponentName(getPackageName(),"of.media.bq.activity.MainActivity"));
-          nowPlayingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        nowPlayingIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        nowPlayingIntent.setComponent(new ComponentName(getPackageName(),"of.media.bq.activity.MainActivity"));
+        nowPlayingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         PendingIntent clickIntent=PendingIntent.getActivity(ForegroundContext,0,nowPlayingIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-         if(mNotification==null){
-             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){//SDK版本大于26
-                 String id="channel_2";
-                 String description="144";
-                 int improtance=NotificationManager.IMPORTANCE_LOW;
-                 NotificationChannel channel=new NotificationChannel(id,description,improtance);
-                 channel.enableLights(true);
-                 channel.enableVibration(true);
-                 notificationManager.createNotificationChannel(channel);
-                 mNotification=new Notification.Builder(ForegroundContext,id).setContent(widgetRemoteViews).setSmallIcon(R.drawable.ic_notification)
-                         .setContentIntent(clickIntent).setWhen(System.currentTimeMillis()).setAutoCancel(false).build();
-             }else{
-                 NotificationCompat.Builder builder=new NotificationCompat.Builder(ForegroundContext).setContent(widgetRemoteViews).setSmallIcon(R.drawable.ic_notification)
-                         .setContentIntent(clickIntent).setWhen(System.currentTimeMillis()).setAutoCancel(false);
-                 mNotification=builder.build();
-             }
-         }else{
-             mNotification.contentView=widgetRemoteViews;
-         }
-       return  mNotification;
+        if(mNotification==null){
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){//SDK版本大于26
+                String id="channel_2";
+                String description="144";
+                int improtance=NotificationManager.IMPORTANCE_LOW;
+                NotificationChannel channel=new NotificationChannel(id,description,improtance);
+                channel.enableLights(true);
+                channel.enableVibration(true);
+                notificationManager.createNotificationChannel(channel);
+                mNotification=new Notification.Builder(ForegroundContext,id).setContent(widgetRemoteViews).setSmallIcon(R.drawable.ic_notification)
+                        .setContentIntent(clickIntent).setWhen(System.currentTimeMillis()).setAutoCancel(false).build();
+            }else{
+                NotificationCompat.Builder builder=new NotificationCompat.Builder(ForegroundContext).setContent(widgetRemoteViews).setSmallIcon(R.drawable.ic_notification)
+                        .setContentIntent(clickIntent).setWhen(System.currentTimeMillis()).setAutoCancel(false);
+                mNotification=builder.build();
+            }
+        }else{
+            mNotification.contentView=widgetRemoteViews;
+        }
+        return  mNotification;
     }
-    
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        
+
         if(intent==null){
             return super.onStartCommand(intent, flags, startId);
         }
@@ -251,35 +246,35 @@ public class MusicService extends Service {
                 }
             }).start();
             }
-//            if(action.contentEquals(PLAY_ACTION)){
-//                if(isCanPlay()){
-//                    String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-//                    playMusic(send_music_service_flag);
-//                }
-//
-//            }else if(action.contentEquals(PREV_ACTION)){
-//                String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-//                prevMusic(send_music_service_flag);
-//            }else if(action.contentEquals(NEXT_ACTION)){
-//                String flag=intent.getStringExtra("flag");//通过flag判断是否为自动播放
-//                String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-//                nextMusic(flag,send_music_service_flag);
-//            }else if(action.contentEquals(PAUSE_ACTION)){
-//                String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-//                pauseMusic(send_music_service_flag);
-//            }else if(action.contentEquals(START_ACTION)){
-//                String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-//                startMusic(send_music_service_flag);
-//            }
+            //            if(action.contentEquals(PLAY_ACTION)){
+            //                if(isCanPlay()){
+            //                    String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
+            //                    playMusic(send_music_service_flag);
+            //                }
+            //
+            //            }else if(action.contentEquals(PREV_ACTION)){
+            //                String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
+            //                prevMusic(send_music_service_flag);
+            //            }else if(action.contentEquals(NEXT_ACTION)){
+            //                String flag=intent.getStringExtra("flag");//通过flag判断是否为自动播放
+            //                String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
+            //                nextMusic(flag,send_music_service_flag);
+            //            }else if(action.contentEquals(PAUSE_ACTION)){
+            //                String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
+            //                pauseMusic(send_music_service_flag);
+            //            }else if(action.contentEquals(START_ACTION)){
+            //                String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
+            //                startMusic(send_music_service_flag);
+            //            }
 
-            handleCommandIntent(intent,0);
+            handleCommandIntent(intent);
         }
-        
+
         return super.onStartCommand(intent, flags, startId);
     }
 
 
-    private void  handleCommandIntent(Intent intent,int type){//type=0为onStartCommand函数处理的消息，type=1为处理前台服务接收的广播
+    private void  handleCommandIntent(Intent intent){//type=0为onStartCommand函数处理的消息，type=1为处理前台服务接收的广播
 
         if(!isCanPlay()){//如果不能满足播放条件
             return;
@@ -288,69 +283,46 @@ public class MusicService extends Service {
             return;
         }
         String action=intent.getAction();
-       if(action.contentEquals(TOGGLEPAUSE_ACTION)){
-       if(isPlaying()){
-           pauseMusic(null);
-       }else{
-           startMusic(null);
-       }
-           NotificationChange(TOGGLEPAUSE_ACTION);//改变前台服务中的音乐状态信息
-       }else if(action.contentEquals(PREV_ACTION)){
-           if(type==0){
-               String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-               prevMusic(send_music_service_flag);
-           }else if(type==1){
-               prevMusic(null);
-           }
-           NotificationChange(PREV_ACTION);//改变前台服务中的音乐状态信息
-       }else  if(action.contentEquals(NEXT_ACTION)){
-           if(type==0){
-               String flag=intent.getStringExtra("flag");//通过flag判断是否为自动播放
-               String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-               nextMusic(flag,send_music_service_flag);
-           }else if(type==1){
-               nextMusic(null,null);
-           }
-           NotificationChange(NEXT_ACTION);//改变前台服务中的音乐状态信息
-       }else if(action.contentEquals(STOP_ACTION)){
-           stopMusic();
-           ForegroundIsExist=false;
-           mNotification=null;
-           stopForeground(true);
-       }else if(action.contentEquals(PLAY_ACTION)){
-           if(type==0){
-               if(isCanPlay()){
-                   String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-                   playMusic(send_music_service_flag);
-               }
-           }
-           NotificationChange(TOGGLEPAUSE_ACTION);//改变前台服务中的音乐状态信息
-       }else if(action.contentEquals(PAUSE_ACTION)){
-        if(type==0){
-            String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-            pauseMusic(send_music_service_flag);
+        if(action.contentEquals(TOGGLEPAUSE_ACTION)){
+            if(isPlaying()){
+                pauseMusic();
+            }else{
+                startMusic();
+            }
+            NotificationChange(TOGGLEPAUSE_ACTION);//改变前台服务中的音乐状态信息
+        }else if(action.contentEquals(PREV_ACTION)){
+            prevMusic();
+            NotificationChange(PREV_ACTION);//改变前台服务中的音乐状态信息
+        }else  if(action.contentEquals(NEXT_ACTION)){
+
+            String flag=intent.getStringExtra("flag");//通过flag判断是否为自动播放
+            nextMusic(flag);
+            NotificationChange(NEXT_ACTION);//改变前台服务中的音乐状态信息
+        }else if(action.contentEquals(STOP_ACTION)){
+            stopMusic();
+            ForegroundIsExist=false;
+            mNotification=null;
+            stopForeground(true);
+        }else if(action.contentEquals(PAUSE_ACTION)){
+            pauseMusic();
+            NotificationChange(TOGGLEPAUSE_ACTION);//改变前台服务中的音乐状态信息
+        }else if(action.contentEquals(START_ACTION)){
+            startMusic();
+            NotificationChange(TOGGLEPAUSE_ACTION);//改变前台服务中的音乐状态信息
         }
-           NotificationChange(TOGGLEPAUSE_ACTION);//改变前台服务中的音乐状态信息
-       }else if(action.contentEquals(START_ACTION)){
-           if(type==0){
-               String send_music_service_flag=intent.getStringExtra("send_music_service_flag");//目的是为了判断是通过操作播放界面而实现的音乐动作还是通过广播实现的
-               startMusic(send_music_service_flag);
-           }
-           NotificationChange(TOGGLEPAUSE_ACTION);//改变前台服务中的音乐状态信息
-       }
 
         Log.i("jfsjfkasjkfj", "handleCommandIntent: "+action);
 
     }
 
 
-   private  void NotificationChange(final String what){
+    private  void NotificationChange(final String what){
         if(what==null){
             return;
         }
-       if(!isCanPlay()){//如果不能满足播放条件
-           return;
-       }
+        if(!isCanPlay()){//如果不能满足播放条件
+            return;
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -368,7 +340,6 @@ public class MusicService extends Service {
                     },0,100);
                     return;
                 }
-
                 if(TOGGLEPAUSE_ACTION.contentEquals(what)){
                     if(isPlaying()){
                         mNotification.contentView.setImageViewResource(R.id.widget_play,R.drawable.widget_play_selector);
@@ -402,12 +373,12 @@ public class MusicService extends Service {
                 notificationManager.notify(NotificationId,mNotification);
             }
         }).start();
-   }
+    }
 
 
 
 
-    private void pauseMusic(String send_music_service_flag){
+    private void pauseMusic(){
         if(isPlaying()){
             mMediaPlayer.pause();
             sendIntent(getApplicationContext(),PAUSE_ACTION);
@@ -417,9 +388,9 @@ public class MusicService extends Service {
             }
         }
     }
-    
-    
-    
+
+
+
     private void stopMusic(){
         if(mMediaPlayer!=null){
             mMediaPlayer.stop();
@@ -430,8 +401,8 @@ public class MusicService extends Service {
             }
         }
     }
-    
-    private  void startMusic(String send_music_service_flag){
+
+    private  void startMusic(){
         if(mMediaPlayer!=null){
             mMediaPlayer.start();
             sendIntent(getApplicationContext(),START_ACTION);
@@ -440,9 +411,9 @@ public class MusicService extends Service {
             }
         }
     }
-    
-    private  void playMusic(String send_music_service_flag){
-        
+
+    private  void playMusic(){
+
         if(isPlaying()){
             if(mControl!=null){
                 mControl.playButton(0);
@@ -457,20 +428,20 @@ public class MusicService extends Service {
             mMediaPlayer.start();
             sendIntent(getApplicationContext(),START_ACTION);
         }
-        
+
     }
-    
+
     //判断是否满足播放条件
-    public boolean isCanPlay(){
+    public static boolean isCanPlay(){
         if(musicList.size()==0||currentPosition<0||currentPosition>musicList.size()&&mMediaPlayer!=null){
             return false;
         }else {
             return true;
         }
     }
-    
-    private void prevMusic(String send_music_service_flag){
-        
+
+    private void prevMusic(){
+
         if(isCanPlay()) {
             saveMusicProgress();
             currentPosition = currentPosition == 0 ? (getMusicSize() - 1) :( currentPosition - 1);
@@ -484,20 +455,16 @@ public class MusicService extends Service {
                 sendIntent(getApplicationContext(),PREV_ACTION);
                 if(mControl!=null){
                     mControl.playButton(1);
-                }
-                if(send_music_service_flag==null||!send_music_service_flag.contentEquals(SEND_MUSIC_SERVICE_FLAG)){//是通过广播发送的服务
-                    if(mControl!=null){
-                        mControl.updateUI();
-                    }
+                    mControl.updateUI();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-    
-    private  void nextMusic(String flag,String send_music_service_flag){
-        
+
+    private  void nextMusic(String flag){
+
         if(isCanPlay()) {
             Log.i("trinity12", "nextMusic:"+flag);
             if(flag==null||!flag.contentEquals(FLAG)){//如果是普通的下一首
@@ -507,9 +474,9 @@ public class MusicService extends Service {
                 music.setProgress(0);
                 musicList.set(currentPosition,music);
             }
-            
+
             currentPosition = (currentPosition >= (getMusicSize() - 1)) ? 0 : currentPosition + 1;
-            
+
             Log.i("trinity12", "nextMusic: "+musicList.get(currentPosition).getProgress()+"//"+currentPosition);
             try {
                 mMediaPlayer.reset();
@@ -520,18 +487,15 @@ public class MusicService extends Service {
                 sendIntent(getApplicationContext(),NEXT_ACTION);
                 if(mControl!=null){
                     mControl.playButton(1);
+                    mControl.updateUI();
                 }
-                if(send_music_service_flag==null||!send_music_service_flag.contentEquals(SEND_MUSIC_SERVICE_FLAG)){//是通过广播发送的服务
-                    if(mControl!=null){
-                        mControl.updateUI();
-                    }
-                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-    
+
     //保存当前播放歌曲的进度
     private void saveMusicProgress(){
         if(isCanPlay()){
@@ -539,18 +503,18 @@ public class MusicService extends Service {
             music.setProgress(mMediaPlayer.getCurrentPosition());
             musicList.set(currentPosition,music);
         }
-        
+
     }
     //判断音乐列表是否为空
     public static boolean isExistMusics(){
         return musicList.size()!=0;
     }
-    
+
     //获取播放列表的音乐个数
     public  static  int getMusicSize(){
         return  musicList.size();
     }
-    
+
     //获取音乐标题
     public  static String getMusicTitle(int index){
         if(musicList.size()==0){
@@ -567,7 +531,7 @@ public class MusicService extends Service {
             return musicList.get(index).getArtist();
         }
     }
-    
+
     //判断音乐是否正在播放
     public static boolean isPlaying(){
         if(mMediaPlayer==null){
@@ -575,7 +539,7 @@ public class MusicService extends Service {
         }
         return mMediaPlayer.isPlaying();
     }
-    
+
     //获取当前播放歌曲的进度
     public static int getMusicCurrentPosition(){
         if(mMediaPlayer==null){
@@ -609,11 +573,10 @@ public class MusicService extends Service {
     }
     public interface Control{
         void playButton(int index);//控制播放按钮的形状(0暂停，1,播放）
-        void autoPlay();//自动播放
+        // void autoPlay();//自动播放
         void updateUI();//更新播放界面的信息
     }
-    
-    
+
     //发送对应action的广播
     public static void sendIntent(Context context,String action){
         Intent intent=new Intent(action);

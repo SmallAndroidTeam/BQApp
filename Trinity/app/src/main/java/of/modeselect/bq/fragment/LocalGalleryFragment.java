@@ -244,13 +244,13 @@ public class LocalGalleryFragment extends Fragment {
 
     private void initView(View view) {
         localGalleryGridView = view.findViewById(R.id.localGalleryGridView);
-
-
     }
     private void initData() {
         List<Gallery> galleryList=addData();
         localGalleryAdapter = new LocalGalleryAdapter(getContext(),galleryList);
-        localGalleryGridView.setNumColumns(7);
+        localGalleryGridView.setNumColumns(10);
+        localGalleryGridView.setHorizontalSpacing(20);
+        localGalleryGridView.setVerticalSpacing(20);
         localGalleryGridView.setAdapter(localGalleryAdapter);
     }
     private List<Gallery> addData(){
