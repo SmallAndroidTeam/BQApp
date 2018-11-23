@@ -42,6 +42,12 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
     private ImageView choose_work;
     private ImageView choose_steam;
     private ImageView choose_steer;
+    
+    private TextView workTextView;
+    private TextView steamTextView;
+    private TextView relaxTextView;
+    private TextView driveTextView;
+  
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,6 +76,10 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
         choose_steer = view.findViewById(R.id.choose_steer);
         choose_steam = view.findViewById(R.id.choose_steam);
         
+        workTextView = view.findViewById(R.id.tv_workmode);
+        relaxTextView = view.findViewById(R.id.tv_relaxmode);
+        driveTextView = view.findViewById(R.id.tv_drivemode);
+        steamTextView = view.findViewById(R.id.tv_steammode);
     }
     private void setTextViewAlphaChange(View view){
         Animation animation=new AlphaAnimation(0.5f,1.0f);
@@ -84,44 +94,68 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
     }
     @Override
     public void onClick(View v) {
-        
         addAnimation(choose_work);
         addAnimation(choose_relax);
         addAnimation(choose_steer);
         addAnimation(choose_steam);
+        initTextViewColor();
         switch(v.getId()){
             case R.id.iv_relax:
                 setTextViewAlphaChange(relaxImageView);
-                choose_relax.setVisibility(View.VISIBLE);
                 choose_work.setVisibility(View.INVISIBLE);
                 choose_steam.setVisibility(View.INVISIBLE);
                 choose_steer.setVisibility(View.INVISIBLE);
-                
-                Log.i("selectionPattern",
-                        String.valueOf("//"+ ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)));
-                if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
-                    //通过调用MainActivity中的setFragment方法显示modeFragment
-                    ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(1);
+                if(choose_relax.getVisibility()==View.VISIBLE){
+                    Log.i("selectionPattern",
+                            String.valueOf("//"+ ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)));
+                    if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
+                        //通过调用MainActivity中的setFragment方法显示modeFragment
+                        ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(1);
                 }
-//                 Intent intent=new Intent(getActivity(), RelaxingActivity.class);
-//                 startActivity(intent);
+                }else {
+                    choose_relax.setVisibility(View.VISIBLE);
+                    
+                    workTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    workTextView.setTextColor(0x80ffffff);//50%透明度
+                    relaxTextView.getPaint().setFakeBoldText(true);//字体加粗
+                    relaxTextView.setTextColor(0xffffffff);//100%透明度
+                    steamTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    steamTextView.setTextColor(0x80ffffff);//50%透明度
+                    driveTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    driveTextView.setTextColor(0x80ffffff);//50%透明度
+                }
+
                 break;
             case R.id.iv_work:
                 setTextViewAlphaChange(workImageView);
                 choose_relax.setVisibility(View.INVISIBLE);
-                choose_work.setVisibility(View.VISIBLE);
                 choose_steam.setVisibility(View.INVISIBLE);
                 choose_steer.setVisibility(View.INVISIBLE);
-                if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
-                    //通过调用MainActivity中的setFragment方法显示modeFragment
-                    ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(2);
+                
+                if(choose_work.getVisibility()==View.VISIBLE){
+                    if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
+                        //通过调用MainActivity中的setFragment方法显示modeFragment
+                        ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(2);
+                    }
+                }else {
+                    choose_work.setVisibility(View.VISIBLE);
+                    
+                    workTextView.getPaint().setFakeBoldText(true);//字体不加粗
+                    workTextView.setTextColor(0xffffffff);//50%透明度
+                    relaxTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    relaxTextView.setTextColor(0x80ffffff);//50%透明度
+                    steamTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    steamTextView.setTextColor(0x80ffffff);//50%透明度
+                    driveTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    driveTextView.setTextColor(0x80ffffff);//50%透明度
                 }
+              
                 break;
             case R.id.iv_steamingmedia:
                 setTextViewAlphaChange(steamingImageView);
                 choose_relax.setVisibility(View.INVISIBLE);
                 choose_work.setVisibility(View.INVISIBLE);
-                choose_steam.setVisibility(View.VISIBLE);
+                choose_steam.setVisibility(View.INVISIBLE);
                 choose_steer.setVisibility(View.INVISIBLE);
                 break;
             case R.id.iv_steeringwheel:
@@ -129,12 +163,36 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
                 choose_relax.setVisibility(View.INVISIBLE);
                 choose_work.setVisibility(View.INVISIBLE);
                 choose_steam.setVisibility(View.INVISIBLE);
-                choose_steer.setVisibility(View.VISIBLE);
-                if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
-                    //通过调用MainActivity中的setFragment方法显示DrivingFragment
-                    ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(3);
+                
+                if(choose_steer.getVisibility()==View.VISIBLE){
+                    if(ActivityCollector.getActivityByIndex(0)!=null&&(ActivityCollector.getActivityByIndex(0) instanceof MainActivity)){
+                        //通过调用MainActivity中的setFragment方法显示DrivingFragment
+                        ((MainActivity) Objects.requireNonNull(ActivityCollector.getActivityByIndex(0))).setFragment(3);
+                    }
+                }else {
+                    choose_steer.setVisibility(View.VISIBLE);
+                    
+                    workTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    workTextView.setTextColor(0x80ffffff);//50%透明度
+                    relaxTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    relaxTextView.setTextColor(0x80ffffff);//50%透明度
+                    steamTextView.getPaint().setFakeBoldText(false);//字体不加粗
+                    steamTextView.setTextColor(0x80ffffff);//50%透明度
+                    driveTextView.getPaint().setFakeBoldText(true);//字体加粗
+                    driveTextView.setTextColor(0xffffffff);//100%透明度
                 }
+             
                 break;
         }
+    }
+    private void initTextViewColor() {
+        workTextView.getPaint().setFakeBoldText(false);//字体不加粗
+        workTextView.setTextColor(0x80ffffff);//50%透明度
+        relaxTextView.getPaint().setFakeBoldText(false);//字体不加粗
+        relaxTextView.setTextColor(0x80ffffff);//50%透明度
+        steamTextView.getPaint().setFakeBoldText(false);//字体不加粗
+        steamTextView.setTextColor(0x80ffffff);//50%透明度
+        driveTextView.getPaint().setFakeBoldText(false);//字体不加粗
+        driveTextView.setTextColor(0x80ffffff);//50%透明度
     }
 }

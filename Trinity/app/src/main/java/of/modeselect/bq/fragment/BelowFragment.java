@@ -15,7 +15,8 @@ import java.util.Objects;
 import of.modeselect.bq.R;
 
 public class BelowFragment  extends Fragment {
-    private Fragment modeFragment,drivingModeFragment;
+    private Fragment modeFragment,drivingModeFragment,morePeopleFragment;
+    private    boolean SIGN=false;//判断当前是否显示多人模式
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -23,6 +24,15 @@ public class BelowFragment  extends Fragment {
         setFragment(0);
         return view;
     }
+    
+    public boolean isSIGN() {
+        return SIGN;
+    }
+    
+    public void setSIGN(boolean SIGN) {
+        this.SIGN = SIGN;
+    }
+    
     /**
      *
      * @param type
@@ -41,7 +51,6 @@ public class BelowFragment  extends Fragment {
                 }else{
                     fragmentTransaction.show(modeFragment);
                 }
-                
                 break;
             case 1:
                 if(drivingModeFragment==null){
@@ -51,6 +60,15 @@ public class BelowFragment  extends Fragment {
                     fragmentTransaction.show(drivingModeFragment);
                 }
                 
+                break;
+            case 2:
+                if(morePeopleFragment==null){
+                    morePeopleFragment=new MorePeopleFragment();
+                    fragmentTransaction.add(R.id.mainFragment,morePeopleFragment);
+                }else {
+                    fragmentTransaction.show(morePeopleFragment);
+                }
+                SIGN=true;//进入了多人模式
                 break;
             default:
                 break;
@@ -64,6 +82,9 @@ public class BelowFragment  extends Fragment {
         }
         if(drivingModeFragment!=null){
             fragmentTransaction.hide(drivingModeFragment);
+        }
+        if(morePeopleFragment!=null){
+            fragmentTransaction.hide(morePeopleFragment);
         }
     }
 }

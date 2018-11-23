@@ -92,7 +92,17 @@ public class MainActivity extends FragmentActivity {
                     final FragmentManager fragmentManager=getSupportFragmentManager();
                     final FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                     hideAllFragment(fragmentTransaction);
-                    setFragment(0);
+                    if(belowFragment==null){
+                        setFragment(0);
+                    }else{
+                        if(((BelowFragment)belowFragment).isSIGN()){//进入了多人模式
+                            setFragment(3);
+                            ((BelowFragment) belowFragment).setSIGN(false);
+                        }else{
+                            setFragment(4);
+                        }
+                    }
+                  
                 }
                 click_millis_time=current_time;
             }
@@ -162,6 +172,17 @@ public class MainActivity extends FragmentActivity {
                     fragmentTransaction.show(belowFragment);
                 }
                 ((BelowFragment)belowFragment).setFragment(0);
+                break;
+            case 5:
+                if(belowFragment==null){
+                    belowFragment=new BelowFragment();
+                    fragmentTransaction.add(R.id.downFragment,belowFragment);
+                }else{
+                    fragmentTransaction.show(belowFragment);
+                }
+                ((BelowFragment)belowFragment).setFragment(2);
+                setTextVisible();
+                break;
             default:
                 break;
         }
