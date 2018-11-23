@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -43,6 +44,7 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
         hideAllFragment(fragmentTransaction);
         switch (i){
             case 0:
+    
                 tv_rightinternet.getPaint().setFakeBoldText(true);
                 tv_rightinternet.setTextColor(0xffffffff);
                 tv_leftinternet.getPaint().setFakeBoldText(true);
@@ -51,9 +53,9 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
                 tv_rightnote.setTextColor(0x80ffffff);
                 tv_leftnote.getPaint().setFakeBoldText(false);
                 tv_leftnote.setTextColor(0x80ffffff);
-                
                 iv_limage.setImageResource(R.drawable.bg_local);
                 iv_rimage.setImageResource(R.drawable.bg_rinternet);
+                setMenuLineImagePositon(0);
                 if(internetFragment==null){
                     internetFragment=new InternetFragment();
                     fragmentTransaction.add(R.id.workFragment,internetFragment);
@@ -62,6 +64,7 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
                 }
                 break;
             case 1:
+    
                 tv_rightinternet.getPaint().setFakeBoldText(false);
                 tv_rightinternet.setTextColor(0x80ffffff);
                 tv_leftinternet.getPaint().setFakeBoldText(false);
@@ -72,11 +75,38 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
                 tv_leftnote.setTextColor(0xffffffff);
                 iv_rimage.setImageResource(R.drawable.bg_rnote);
                 iv_limage.setImageResource(R.drawable.bg_online);
+                setMenuLineImagePositon(1);
                 break;
             default:
                 break;
         }
         fragmentTransaction.commit();
+    }
+    
+    /**
+     *
+     * @param type
+     * type=0；选中Internet
+     * type=1；选中便笺纸
+     */
+    private void setMenuLineImagePositon(int type){
+        if(type==0){
+            LinearLayout.LayoutParams ivLeftImageLayoutParams= (LinearLayout.LayoutParams) iv_limage.getLayoutParams();
+            ivLeftImageLayoutParams.topMargin=40;
+            iv_limage.setLayoutParams(ivLeftImageLayoutParams);
+            LinearLayout.LayoutParams ivRightImageLayoutParams= (LinearLayout.LayoutParams) iv_rimage.getLayoutParams();
+            ivRightImageLayoutParams.topMargin=40;
+            iv_rimage.setLayoutParams(ivRightImageLayoutParams);
+        }else if(type==1){
+            LinearLayout.LayoutParams ivLeftImageLayoutParams= (LinearLayout.LayoutParams) iv_limage.getLayoutParams();
+            ivLeftImageLayoutParams.topMargin=20;
+            iv_limage.setLayoutParams(ivLeftImageLayoutParams);
+            LinearLayout.LayoutParams ivRightImageLayoutParams= (LinearLayout.LayoutParams) iv_rimage.getLayoutParams();
+            ivRightImageLayoutParams.topMargin=20;
+            iv_rimage.setLayoutParams(ivRightImageLayoutParams);
+        }
+      
+        
     }
     
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
@@ -116,7 +146,6 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
             case R.id.tv_leftinternet:
             case R.id.tv_rightinternet:
                 setTab(0);
-                
                 break;
             case R.id.tv_leftnote:
             case R.id.tv_rightnote:

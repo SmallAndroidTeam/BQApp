@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="20px">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_height="100px">
+    <ImageView
+        android:id="@+id/iv_prev_page"
+        android:layout_width="35px"
+        android:layout_height="35px"
+        android:src="@drawable/icon_pre_page"/>
+    <ImageView
+        android:id="@+id/iv_next_page"
+        android:layout_width="35px"
+        android:layout_height="35px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:src="@drawable/icon_next_page"/>
+    <ImageView
+        android:id="@+id/iv_refresh_page"
+        android:layout_width="35px"
+        android:layout_height="35px"
+        android:src="@drawable/icon_refresh"/>
+    <ImageView
+        android:id="@+id/iv_home_page"
+        android:layout_width="35px"
+        android:layout_height="35px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:src="@drawable/icon_home"/>
+    <EditText
+        android:id="@+id/et_page_url"
+        android:layout_width="match_parent"
+        android:paddingLeft="20px"
+        android:paddingEnd="20px"
+        android:layout_height="80px"
+        android:inputType="textNoSuggestions"
+        android:ellipsize="start"
+        android:textColor="@color/textSelect"
+        android:singleLine="true"
+        android:background="@drawable/bg_page_url"
+    />
+</LinearLayout>
+    <WebView
+        android:id="@+id/wv_internet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+</LinearLayout>

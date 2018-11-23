@@ -7,18 +7,23 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="100px"
+     >
         <ImageView
             android:id="@+id/iv_browser_left_split_line"
             android:layout_width="wrap_content"
             android:layout_height="100px"
+            android:scaleType="fitXY"
             android:src="@drawable/pic_browser_line_l" />
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_browser_title"
+            android:layout_toRightOf="@id/iv_browser_left_split_line"
+            android:layout_width="0px"
+            android:layout_height="100px"></android.support.v7.widget.RecyclerView>
         <RelativeLayout
             android:id="@+id/rl_brower_right_split"
-            android:layout_alignParentRight="true"
-            android:layout_width="1400px"
+            android:layout_toRightOf="@+id/recycler_view_browser_title"
+            android:layout_width="match_parent"
             android:minWidth="100px"
             android:layout_height="100px">
 
@@ -45,12 +50,10 @@
                 android:src="@drawable/pic_browser_line_r" />
         </RelativeLayout>
 
-        <GridView
-            android:id="@+id/gv_browser_title"
-            android:layout_toRightOf="@id/iv_browser_left_split_line"
-            android:layout_toLeftOf="@+id/rl_brower_right_split"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></GridView>
-    </RelativeLayout>
 
+    </RelativeLayout>
+   <FrameLayout
+       android:id="@+id/framelayout_page"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"></FrameLayout>
 </LinearLayout>

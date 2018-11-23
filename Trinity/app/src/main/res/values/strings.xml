@@ -16,5 +16,6 @@
     <string name="dialpad_pound_number">#</string>
     <string name="online">在线</string>
     <string name="local">本地</string>
+   <string name="DEFALUT_URL">https://www.baidu.com/</string>
 
 </resources>
