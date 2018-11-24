@@ -80,16 +80,16 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
         relaxTextView = view.findViewById(R.id.tv_relaxmode);
         driveTextView = view.findViewById(R.id.tv_drivemode);
         steamTextView = view.findViewById(R.id.tv_steammode);
+
     }
-    private void setTextViewAlphaChange(View view){
-        Animation animation=new AlphaAnimation(0.5f,1.0f);
-        animation.setDuration(500);
-        view.startAnimation(animation);
+    private void setTextViewAlphaChange(TextView view){
+        view.getPaint().setFakeBoldText(true);//字体加粗
+        view.setTextColor(0xffffffff);//100%透明度
     }
     
     private  void addAnimation(View view){
         Fade fade=new Fade();
-        fade.setDuration(500);
+      fade.setDuration(100);
         TransitionManager.beginDelayedTransition((ViewGroup) view.getParent(),fade);
     }
     @Override
@@ -101,7 +101,7 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
         initTextViewColor();
         switch(v.getId()){
             case R.id.iv_relax:
-                setTextViewAlphaChange(relaxImageView);
+                setTextViewAlphaChange(relaxTextView);
                 choose_work.setVisibility(View.INVISIBLE);
                 choose_steam.setVisibility(View.INVISIBLE);
                 choose_steer.setVisibility(View.INVISIBLE);
@@ -127,7 +127,7 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
 
                 break;
             case R.id.iv_work:
-                setTextViewAlphaChange(workImageView);
+                setTextViewAlphaChange(workTextView);
                 choose_relax.setVisibility(View.INVISIBLE);
                 choose_steam.setVisibility(View.INVISIBLE);
                 choose_steer.setVisibility(View.INVISIBLE);
@@ -152,14 +152,14 @@ public class SelectionPatternFragment extends Fragment implements View.OnClickLi
               
                 break;
             case R.id.iv_steamingmedia:
-                setTextViewAlphaChange(steamingImageView);
+               // setTextViewAlphaChange(steamTextView);
                 choose_relax.setVisibility(View.INVISIBLE);
                 choose_work.setVisibility(View.INVISIBLE);
                 choose_steam.setVisibility(View.INVISIBLE);
                 choose_steer.setVisibility(View.INVISIBLE);
                 break;
             case R.id.iv_steeringwheel:
-                setTextViewAlphaChange(steeringImageView);
+                 setTextViewAlphaChange(driveTextView);
                 choose_relax.setVisibility(View.INVISIBLE);
                 choose_work.setVisibility(View.INVISIBLE);
                 choose_steam.setVisibility(View.INVISIBLE);

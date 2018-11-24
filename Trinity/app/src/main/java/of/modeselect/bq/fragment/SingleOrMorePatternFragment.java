@@ -56,7 +56,7 @@ public class SingleOrMorePatternFragment extends Fragment implements View.OnClic
     
     private  void addAnimation(View view){
         Fade fade=new Fade();
-        fade.setDuration(500);
+        fade.setDuration(100);
         TransitionManager.beginDelayedTransition((ViewGroup) view.getParent(),fade);
     }
     
