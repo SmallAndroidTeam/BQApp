@@ -9,7 +9,6 @@ public class Music {
     private String uri; // 音乐路径
     private int length; // 长度
     private String image; // icon
-    private int albumImageId;
     private String artist; // 艺术家
     private String lrcpath;//歌词路径
     private Integer progress=0;//播放进度
@@ -22,14 +21,6 @@ public class Music {
 
     public void setProgress(Integer progress) {
         this.progress = progress;
-    }
-
-    public int getAlbumImageId() {
-        return albumImageId;
-    }
-
-    public void setAlbumImageId(int albumImageId) {
-        this.albumImageId = albumImageId;
     }
 
     public String getLrcpath() {

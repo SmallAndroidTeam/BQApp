@@ -3,48 +3,48 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:paddingTop="30px" android:paddingLeft="30px"
 
- >
+    >
   <!--android:verticalSpacing="20px"-->
   <!--android:horizontalSpacing="20px"-->
   <GridView
       android:id="@+id/localVideoGridView"
-      android:layout_width="1620px"
-      android:layout_height="wrap_content"
+      android:layout_width="2440px"
+      android:layout_height="460px"
 
       >
   </GridView>
-   <!--<RelativeLayout-->
-       <!--android:id="@+id/videRelativeLayout"-->
-       <!--android:background="@drawable/video_image_frame"-->
-       <!--android:layout_width="230dp"-->
-       <!--android:layout_marginRight="10dp"-->
-       <!--android:padding="3dp"-->
-       <!--android:layout_height="110dp">-->
-       <!--<ImageView-->
-           <!--android:id="@+id/videoThumbnail"-->
-           <!--android:background="@color/textNoSelect"-->
-           <!--android:layout_width="match_parent"-->
-           <!--android:layout_height="match_parent"-->
-           <!--android:scaleType="fitXY"-->
-           <!--android:src="@drawable/vp1" />-->
-       <!--<TextView-->
-           <!--android:id="@+id/videoNameTextView"-->
-           <!--android:layout_centerInParent="true"-->
-           <!--android:gravity="center"-->
-           <!--android:textColor="@color/textSelect"-->
-           <!--android:layout_width="200dp"-->
-           <!--android:layout_height="wrap_content"-->
-           <!--android:text="变形金刚4:绝迹重生"-->
-           <!--android:singleLine="true"-->
-           <!--android:ellipsize="end"-->
-          <!--/>-->
-       <!--<ImageView-->
-           <!--android:id="@+id/videoPauseImageView"-->
-             <!--android:layout_below="@+id/videoNameTextView"-->
-           <!--android:layout_centerHorizontal="true"-->
-           <!--android:layout_width="30dp"-->
-           <!--android:layout_height="30dp"-->
-           <!--android:src="@drawable/video_pause_imageview"/>-->
-   <!--</RelativeLayout>-->
+  <!--<RelativeLayout-->
+  <!--android:id="@+id/videRelativeLayout"-->
+  <!--android:background="@drawable/video_image_frame"-->
+  <!--android:layout_width="230dp"-->
+  <!--android:layout_marginRight="10dp"-->
+  <!--android:padding="3dp"-->
+  <!--android:layout_height="110dp">-->
+  <!--<ImageView-->
+  <!--android:id="@+id/videoThumbnail"-->
+  <!--android:background="@color/textNoSelect"-->
+  <!--android:layout_width="match_parent"-->
+  <!--android:layout_height="match_parent"-->
+  <!--android:scaleType="fitXY"-->
+  <!--android:src="@drawable/vp1" />-->
+  <!--<TextView-->
+  <!--android:id="@+id/videoNameTextView"-->
+  <!--android:layout_centerInParent="true"-->
+  <!--android:gravity="center"-->
+  <!--android:textColor="@color/textSelect"-->
+  <!--android:layout_width="200dp"-->
+  <!--android:layout_height="wrap_content"-->
+  <!--android:text="变形金刚4:绝迹重生"-->
+  <!--android:singleLine="true"-->
+  <!--android:ellipsize="end"-->
+  <!--/>-->
+  <!--<ImageView-->
+  <!--android:id="@+id/videoPauseImageView"-->
+  <!--android:layout_below="@+id/videoNameTextView"-->
+  <!--android:layout_centerHorizontal="true"-->
+  <!--android:layout_width="30dp"-->
+  <!--android:layout_height="30dp"-->
+  <!--android:src="@drawable/video_pause_imageview"/>-->
+  <!--</RelativeLayout>-->
 
 </RelativeLayout>

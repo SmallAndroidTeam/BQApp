@@ -2,6 +2,7 @@ package of.modeselect.bq.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 
 import of.modeselect.bq.R;
 import of.modeselect.bq.bean.Music;
+import of.modeselect.bq.localInformation.MusicIconLoader;
 import of.modeselect.bq.localInformation.MusicUtils;
 import of.modeselect.bq.service.MusicService;
 import of.modeselect.bq.toast.OneToast;
@@ -96,12 +98,13 @@ public class LocalMusicFragment extends Fragment implements View.OnTouchListener
         if(MusicService.isCanPlay()){//如果前台服务存在
             mhandler.sendEmptyMessage(UPDATE_UI);
         }else{
-            List<Music>  musicList=addData();
+            MusicUtils.initMusicList();
+            List<Music>  musicList=MusicUtils.sMusicList;
             if(musicList.size()>0){
                 MusicService.initMusicService(musicList,0);
                 setMusicAlbumPosition(0);
             }else{
-                OneToast.showMessage(getContext(),"请导入至少5首mp3歌到本地");
+                OneToast.showMessage(getContext(),"当前无本地歌曲");
                 setMusicAlbumPosition(-1);
             }
             musicTitle.setText(MusicService.getMusicTitle(0));
@@ -109,64 +112,7 @@ public class LocalMusicFragment extends Fragment implements View.OnTouchListener
         }
 
     }
-    private List<Music> addData() {
-        MusicUtils.initMusicList();
-        List<Music>  musicList=MusicUtils.sMusicList;
-        List<Music> testMusicList=new ArrayList<>();
-        final Integer[] musicAlbumIDs=new Integer[]{R.drawable.mp2,R.drawable.mp5,R.drawable.mp3,R.drawable.mp1,R.drawable.mp4};
-        // adb push G:\Trinity_project\music /storage/emulated/0/Music
 
-
-
-//        if(musicList==null){
-//            return  testMusicList;
-//        }else{
-//            Music music=null;
-//            for(int i=0;i<4;i++)
-//            {    music=musicList.get(i);
-//                music.setAlbumImageId(musicAlbumIDs[i]);
-//                testMusicList.add(music);
-//            }
-//            return  testMusicList;
-//        }
-
-
-
-        if(musicList==null||musicList.size()<5){
-            return  testMusicList;
-        }else{
-            Music music=null;
-            for(int i=0;i<musicAlbumIDs.length;i++)
-            {    music=musicList.get(i);
-                music.setAlbumImageId(musicAlbumIDs[i]);
-                testMusicList.add(music);
-            }
-            return  testMusicList;
-        }
-    }
-
-    private List<String> getMusicAddress(){
-        List<String> musicAddress=new ArrayList<>();
-        String sdAddress=null;
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){//sd卡是否存在
-            sdAddress=Environment.getExternalStorageDirectory().getAbsolutePath();//sd卡存储路径
-        }else {
-            sdAddress=Environment.getExternalStorageDirectory().getAbsolutePath();//本地存储路径
-        }
-        sdAddress+="/Music/music";
-        File file=new File(sdAddress);
-        if(!file.exists()||file.isFile()){
-            return null;
-        }else{
-            File[] files=file.listFiles();
-            for(File file1:files){
-                if (file1.getAbsolutePath().endsWith(".mp3")){
-                    musicAddress.add(file1.getAbsolutePath());
-                }
-            }
-        }
-        return musicAddress;
-    }
     private void initView(View view) {
         firstMusicImageview = view.findViewById(R.id.firstMusicImageview);
         prevMusicImageview = view.findViewById(R.id.prevMusicImageview);
@@ -282,17 +228,6 @@ public class LocalMusicFragment extends Fragment implements View.OnTouchListener
 
     //根据下标设置图片专辑显示的图片
     public void setMusicAlbumPosition(int position){
-        Animation animationAlpha=new AlphaAnimation(1f,1f);
-        Animation animationAlpha1=new AlphaAnimation(0.5f,0.5f);
-        animationAlpha.setDuration(0);
-        animationAlpha.setFillAfter(true);
-        animationAlpha1.setFillAfter(true);
-        animationAlpha1.setDuration(0);
-        currentMusicImageview.startAnimation(animationAlpha);
-        firstMusicImageview.startAnimation(animationAlpha1);
-        prevMusicImageview.startAnimation(animationAlpha1);
-        nextMusicImageview.startAnimation(animationAlpha1);
-        lastMusicImageview.startAnimation(animationAlpha1);
 
         if(position==-1){//没有音乐
             OneToast.showMessage(getContext(),"没有音乐");
@@ -301,37 +236,37 @@ public class LocalMusicFragment extends Fragment implements View.OnTouchListener
             prevMusicImageview.setVisibility(View.INVISIBLE);
             nextMusicImageview.setVisibility(View.INVISIBLE);
             lastMusicImageview.setVisibility(View.INVISIBLE);
-
+            setMusicAlbumAlpha();
+            setMusicAlbum(currentMusicImageview,null);
         }else if(position>MusicService.getMusicSize()-1){//下标超过最大值不执行任何操作
-
         }
         else if(MusicService.getMusicSize()==1){
-
             currentMusicImageview.setVisibility(View.VISIBLE);
             lastMusicImageview.setVisibility(View.INVISIBLE);
             firstMusicImageview.setVisibility(View.INVISIBLE);
             prevMusicImageview.setVisibility(View.INVISIBLE);
             nextMusicImageview.setVisibility(View.INVISIBLE);
-            currentMusicImageview.setImageResource(MusicService.getMusicList().get(position).getAlbumImageId());
+            setMusicAlbumAlpha();
+            setMusicAlbum(currentMusicImageview,MusicService.getMusicList().get(position).getImage());
             final AnimationSet animationSet= (AnimationSet) AnimationUtils.loadAnimation(getContext(),R.anim.music_album_change);
             currentMusicImageview.startAnimation(animationSet);
         }else if(MusicService.getMusicSize()==2){
-
             lastMusicImageview.setVisibility(View.INVISIBLE);
             firstMusicImageview.setVisibility(View.INVISIBLE);
             currentMusicImageview.setVisibility(View.VISIBLE);
-            currentMusicImageview.setImageResource(MusicService.getMusicList().get(position).getAlbumImageId());
-            final AnimationSet animationSet= (AnimationSet) AnimationUtils.loadAnimation(getContext(),R.anim.music_album_change);
-            currentMusicImageview.startAnimation(animationSet);
             prevMusicImageview.setVisibility(View.VISIBLE);
             nextMusicImageview.setVisibility(View.INVISIBLE);
+            setMusicAlbum(currentMusicImageview,MusicService.getMusicList().get(position).getImage());
             int preIndex=position<=0?1:position-1;
-            prevMusicImageview.setImageResource(MusicService.getMusicList().get(preIndex).getAlbumImageId());
+            setMusicAlbum(prevMusicImageview,MusicService.getMusicList().get(preIndex).getImage());
+            setMusicAlbumAlpha();
+            final AnimationSet animationSet= (AnimationSet) AnimationUtils.loadAnimation(getContext(),R.anim.music_album_change);
+            currentMusicImageview.startAnimation(animationSet);
+
 
         }else if(MusicService.getMusicSize()==3)
-            {
-
-                lastMusicImageview.setVisibility(View.INVISIBLE);
+        {
+            lastMusicImageview.setVisibility(View.INVISIBLE);
             firstMusicImageview.setVisibility(View.INVISIBLE);
             currentMusicImageview.setVisibility(View.VISIBLE);
             prevMusicImageview.setVisibility(View.VISIBLE);
@@ -340,14 +275,14 @@ public class LocalMusicFragment extends Fragment implements View.OnTouchListener
             int size=MusicService.getMusicSize();
             int prevPostion=position==0?size-1:position-1;
             int nextPostion=(position>=(size-1))?0:position+1;
-            prevMusicImageview.setImageResource(MusicService.getMusicList().get(prevPostion).getAlbumImageId());
-            currentMusicImageview.setImageResource(MusicService.getMusicList().get(position).getAlbumImageId());
-
+            setMusicAlbum(prevMusicImageview,MusicService.getMusicList().get(prevPostion).getImage());
+            setMusicAlbum(currentMusicImageview,MusicService.getMusicList().get(position).getImage());
+            setMusicAlbum(nextMusicImageview,MusicService.getMusicList().get(nextPostion).getImage());
+            setMusicAlbumAlpha();
             final AnimationSet animationSet= (AnimationSet) AnimationUtils.loadAnimation(getContext(),R.anim.music_album_change);
             currentMusicImageview.startAnimation(animationSet);
-            nextMusicImageview.setImageResource(MusicService.getMusicList().get(nextPostion).getAlbumImageId());
-        }else if(MusicService.getMusicSize()==4){
 
+        }else if(MusicService.getMusicSize()==4){
             lastMusicImageview.setVisibility(View.INVISIBLE);
             firstMusicImageview.setVisibility(View.VISIBLE);
             currentMusicImageview.setVisibility(View.VISIBLE);
@@ -357,10 +292,14 @@ public class LocalMusicFragment extends Fragment implements View.OnTouchListener
             int prevPostion=position==0?size-1:position-1;
             int nextPostion=(position>=(size-1))?0:position+1;
             int firstPositon=prevPostion==0?(size-1):prevPostion-1;
-            firstMusicImageview.setImageResource(MusicService.getMusicList().get(firstPositon).getAlbumImageId());
-            prevMusicImageview.setImageResource(MusicService.getMusicList().get(prevPostion).getAlbumImageId());
-            currentMusicImageview.setImageResource(MusicService.getMusicList().get(position).getAlbumImageId());
-            nextMusicImageview.setImageResource(MusicService.getMusicList().get(nextPostion).getAlbumImageId());
+
+
+            setMusicAlbum(firstMusicImageview,MusicService.getMusicList().get(firstPositon).getImage());
+            setMusicAlbum(prevMusicImageview,MusicService.getMusicList().get(prevPostion).getImage());
+            setMusicAlbum(currentMusicImageview,MusicService.getMusicList().get(position).getImage());
+            setMusicAlbum(nextMusicImageview,MusicService.getMusicList().get(nextPostion).getImage());
+
+            setMusicAlbumAlpha();
             final AnimationSet animationSet= (AnimationSet) AnimationUtils.loadAnimation(getContext(),R.anim.music_album_change);
             currentMusicImageview.startAnimation(animationSet);
         }else{
@@ -374,16 +313,74 @@ public class LocalMusicFragment extends Fragment implements View.OnTouchListener
             int nextPostion=(position>=(size-1))?0:position+1;
             int firstPositon=prevPostion==0?(size-1):prevPostion-1;
             int lastPosition=nextPostion>=(size-1)?0:nextPostion+1;
-            firstMusicImageview.setImageResource(MusicService.getMusicList().get(firstPositon).getAlbumImageId());
-            prevMusicImageview.setImageResource(MusicService.getMusicList().get(prevPostion).getAlbumImageId());
-            currentMusicImageview.setImageResource(MusicService.getMusicList().get(position).getAlbumImageId());
-            nextMusicImageview.setImageResource(MusicService.getMusicList().get(nextPostion).getAlbumImageId());
-            lastMusicImageview.setImageResource(MusicService.getMusicList().get(lastPosition).getAlbumImageId());
+
+
+
+            setMusicAlbum(firstMusicImageview,MusicService.getMusicList().get(firstPositon).getImage());
+            setMusicAlbum(prevMusicImageview,MusicService.getMusicList().get(prevPostion).getImage());
+            setMusicAlbum(currentMusicImageview,MusicService.getMusicList().get(position).getImage());
+            setMusicAlbum(nextMusicImageview,MusicService.getMusicList().get(nextPostion).getImage());
+            setMusicAlbum(lastMusicImageview,MusicService.getMusicList().get(lastPosition).getImage());
+
+            setMusicAlbumAlpha();
             final AnimationSet animationSet= (AnimationSet) AnimationUtils.loadAnimation(getContext(),R.anim.music_album_change);
             currentMusicImageview.startAnimation(animationSet);
-
         }
+
     }
+
+    /**
+     * 设置音乐的专辑图片
+     * @param imageView
+     * @param albumAddress
+     */
+    private void setMusicAlbum(ImageView imageView,String albumAddress){
+
+        if(albumAddress==null){
+            imageView.setImageResource(R.drawable.play_page_default_cover);
+        }else{
+            Bitmap bitmap= MusicIconLoader.getInstance().load(albumAddress);
+            if(bitmap==null){
+                imageView.setImageResource(R.drawable.play_page_default_cover);
+            }else{
+                imageView.setImageBitmap(bitmap);
+            }
+        }
+
+    }
+
+
+    /**
+     * 设置专辑图片的透明度
+     */
+    private void setMusicAlbumAlpha(){
+
+        Animation animationAlpha=new AlphaAnimation(1f,1f);
+        Animation animationAlpha1=new AlphaAnimation(0.5f,0.5f);
+        animationAlpha.setDuration(0);
+        animationAlpha.setFillAfter(true);
+        animationAlpha1.setFillAfter(true);
+        animationAlpha1.setDuration(0);
+        if(currentMusicImageview.getVisibility()==View.VISIBLE)
+            currentMusicImageview.startAnimation(animationAlpha);
+
+        if(firstMusicImageview.getVisibility()==View.VISIBLE)
+            firstMusicImageview.startAnimation(animationAlpha1);
+
+        if(prevMusicImageview.getVisibility()==View.VISIBLE)
+            prevMusicImageview.startAnimation(animationAlpha1);
+
+        if(nextMusicImageview.getVisibility()==View.VISIBLE)
+            nextMusicImageview.startAnimation(animationAlpha1);
+
+        if(lastMusicImageview.getVisibility()==View.VISIBLE)
+            lastMusicImageview.startAnimation(animationAlpha1);
+
+    }
+
+
+
+
 
     @Override
     public void onClick(View view) {

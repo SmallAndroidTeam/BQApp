@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
  */
 public class Video {
 
-    private int videoThumbnail;
     private String videoName;
     private int vdieoId=0;
     private String videoPath=null;//播放路径(如果视频已下载则此为本地路径)
@@ -126,13 +125,6 @@ public class Video {
         this.videoPath = videoPath;
     }
 
-    public int getVideoThumbnail() {
-        return videoThumbnail;
-    }
-
-    public void setVideoThumbnail(int videoThumbnail) {
-        this.videoThumbnail = videoThumbnail;
-    }
 
     public String getVideoName() {
         return videoName;

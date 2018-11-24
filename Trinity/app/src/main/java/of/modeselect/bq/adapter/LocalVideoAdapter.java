@@ -3,6 +3,7 @@ import of.modeselect.bq.R;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionManager;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import of.modeselect.bq.activity.PlayVideoActivity;
 import of.modeselect.bq.bean.Video;
+import of.modeselect.bq.localInformation.FileManger;
 import of.modeselect.bq.saveData.SaveData;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class LocalVideoAdapter extends BaseAdapter {
     private List<Video> videoList=new ArrayList<>();
     private int position=0;//当前选中的视频下标
     public LocalVideoAdapter(List<Video> videoList) {
-     this.videoList=videoList;
+        this.videoList=videoList;
     }
 
     public int getPosition() {
@@ -69,7 +71,7 @@ public class LocalVideoAdapter extends BaseAdapter {
         Log.i("trinity16", "getView: "+videoList.size());
         final  ViewHolder viewHolder;
         if(view==null){
-           view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.local_video_adapter_item,viewGroup,false);
+            view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.local_video_adapter_item,viewGroup,false);
             RelativeLayout videRelativeLayout=view.findViewById(R.id.videRelativeLayout);
             ImageView videoThumbnail=view.findViewById(R.id.videoThumbnail);
             TextView videoNameTextView=view.findViewById(R.id.videoNameTextView);
@@ -80,8 +82,26 @@ public class LocalVideoAdapter extends BaseAdapter {
             viewHolder= (ViewHolder) view.getTag();
         }
 
-         viewHolder.videoThumbnail.setImageResource(videoList.get(i).getVideoThumbnail());
-          viewHolder.videoNameTextView.setText(videoList.get(i).getVideoName());
+        Bitmap videBitmap=null;
+        if(videoList.get(i).getThumbnail()!=null){
+            videBitmap=videoList.get(i).getThumbnail();
+        }else{
+            videBitmap= FileManger.getInstance(viewGroup.getContext()).getVideoThumbnailById(videoList.get(i).getVdieoId());
+            if(videBitmap!=null){
+                Video video=videoList.get(i);
+                video.setThumbnail(videBitmap);
+                videoList.set(i,video);
+            }
+        }
+        if(videBitmap==null){
+            viewHolder.videoThumbnail.setImageResource(R.drawable.video_defalut_thumbnail);
+        }else{
+            viewHolder.videoThumbnail.setImageBitmap(videBitmap);
+        }
+
+
+
+        viewHolder.videoNameTextView.setText(videoList.get(i).getVideoName());
 
         if(i==position){
             viewHolder.videRelativeLayout.setBackgroundResource(R.drawable.bg_video_choose);
@@ -102,11 +122,11 @@ public class LocalVideoAdapter extends BaseAdapter {
                 }
                 if(position==index){
 
-                                        PlayVideoActivity.setVideoList(videoList);
-                                        Intent intent=new Intent(viewGroup.getContext(),PlayVideoActivity.class);
-                                        intent.putExtra("position",index);
+                    PlayVideoActivity.setVideoList(videoList);
+                    Intent intent=new Intent(viewGroup.getContext(),PlayVideoActivity.class);
+                    intent.putExtra("position",index);
 
-                                       viewGroup.getContext().startActivity(intent);
+                    viewGroup.getContext().startActivity(intent);
 
                 }
                 else{
@@ -116,7 +136,7 @@ public class LocalVideoAdapter extends BaseAdapter {
                     Slide slide=new Slide();
                     transitionSet.addTransition(slide).addTransition(fade);
                     TransitionManager.beginDelayedTransition((ViewGroup) view,transitionSet);
-                     notifyDataSetChanged();
+                    notifyDataSetChanged();
                 }
 
             }
@@ -125,10 +145,10 @@ public class LocalVideoAdapter extends BaseAdapter {
         return view;
     }
     public class ViewHolder{
-    RelativeLayout videRelativeLayout;
-    ImageView videoThumbnail;
-    TextView videoNameTextView;
-    ImageView videoPauseImageView;
+        RelativeLayout videRelativeLayout;
+        ImageView videoThumbnail;
+        TextView videoNameTextView;
+        ImageView videoPauseImageView;
 
         public ViewHolder(RelativeLayout videRelativeLayout, ImageView videoThumbnail, TextView videoNameTextView, ImageView videoPauseImageView) {
             this.videRelativeLayout = videRelativeLayout;

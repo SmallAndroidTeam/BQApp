@@ -8,7 +8,7 @@
         android:layout_height="220px"
         android:descendantFocusability="blocksDescendants"
         android:background="@drawable/bg_video_choose"
-      >
+        >
         <ImageView
             android:layout_centerInParent="true"
             android:id="@+id/videoThumbnail"
@@ -16,7 +16,7 @@
             android:layout_height="186px"
             android:scaleType="fitXY"
             android:focusable="false"
-            android:src="@drawable/vp2"/>
+            android:src="@drawable/video_defalut_thumbnail"/>
         <TextView
             android:id="@+id/videoNameTextView"
             android:visibility="gone"
