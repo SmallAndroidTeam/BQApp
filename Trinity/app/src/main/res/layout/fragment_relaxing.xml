@@ -39,6 +39,7 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="@string/online"
+                  android:visibility="invisible"
                   android:textColor="#ffffff"
                   android:layout_marginTop="140px"
                   android:textSize="36px"/>
@@ -59,6 +60,7 @@
                   android:layout_marginTop="35px"
                   android:layout_height="match_parent"
                   android:scaleType="fitXY"
+
                   android:src="@drawable/bg_online"
                   android:layout_marginBottom="85px"/>
             <LinearLayout
@@ -93,6 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/online"
+                    android:visibility="invisible"
                     android:textColor="#ffffff"
                     android:layout_marginTop="140px"
                     android:textSize="36px"/>

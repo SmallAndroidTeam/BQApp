@@ -26,7 +26,7 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
     private TextView tv_rightinternet;
     private ImageView iv_limage;
     private ImageView iv_rimage;
-    private Fragment internetFragment;
+    private Fragment internetFragment,noteFragment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,6 +76,12 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
                 iv_rimage.setImageResource(R.drawable.bg_rnote);
                 iv_limage.setImageResource(R.drawable.bg_online);
                 setMenuLineImagePositon(1);
+                if(noteFragment==null){
+                    noteFragment=new NoteFragment();
+                    fragmentTransaction.add(R.id.workFragment,noteFragment);
+                }else {
+                    fragmentTransaction.show(noteFragment);
+                }
                 break;
             default:
                 break;
@@ -113,6 +119,9 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
         if(internetFragment!=null){
             fragmentTransaction.hide(internetFragment);
         }
+        if(noteFragment!=null){
+            fragmentTransaction.hide(noteFragment);
+        }
     }
     
     private void initViewColor() {
@@ -141,7 +150,7 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
     
     @Override
     public void onClick(View v) {
-        
+       
         switch (v.getId()){
             case R.id.tv_leftinternet:
             case R.id.tv_rightinternet:
@@ -156,5 +165,6 @@ public class WorkingModeFragment extends Fragment implements View.OnClickListene
                 break;
         }
     }
+   
     
 }

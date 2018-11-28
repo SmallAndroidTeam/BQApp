@@ -17,5 +17,8 @@
     <string name="online">在线</string>
     <string name="local">本地</string>
    <string name="DEFALUT_URL">https://www.baidu.com/</string>
+    <string name="et_note_input_tip">内容</string>
+    <string name="note_tv_delete">删除</string>
+    <string name="note_tv_save">保存</string>
 
 </resources>

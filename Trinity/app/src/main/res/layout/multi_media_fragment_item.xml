@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="在线"
                 android:textSize="40px"
+                android:visibility="invisible"
                 android:layout_marginTop="90px"
                 android:textColor="@color/textNoSelect"/>
             <TextView
@@ -59,6 +60,7 @@
                 android:layout_marginTop="55px"
                 android:background="@drawable/split_line_fame"
                 android:layout_width="5px"
+                android:visibility="invisible"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15px"/>
         </RelativeLayout>
