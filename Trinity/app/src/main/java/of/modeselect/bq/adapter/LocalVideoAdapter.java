@@ -31,7 +31,9 @@ public class LocalVideoAdapter extends BaseAdapter {
     private List<Video> videoList=new ArrayList<>();
     private int position=0;//当前选中的视频下标
     public LocalVideoAdapter(List<Video> videoList) {
-        this.videoList=videoList;
+    
+        this.videoList.clear();
+        this.videoList.addAll(videoList);
     }
 
     public int getPosition() {
@@ -47,7 +49,7 @@ public class LocalVideoAdapter extends BaseAdapter {
     }
 
     public void setVideoList(List<Video> videoList) {
-
+       this.videoList.clear();
         SaveData.copy(videoList,this.videoList);
     }
 

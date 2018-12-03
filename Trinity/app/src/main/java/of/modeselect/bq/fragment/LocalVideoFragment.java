@@ -112,9 +112,15 @@ public class LocalVideoFragment extends Fragment {
         //        });
 
     }
-
-
-
+    
+    
+    //此函数用于解决视频列表突然失踪的bug
+    public void reshow(){
+        if(localVideoAdapter!=null&&localVideoAdapter.getCount()==0){
+            localVideoAdapter.setVideoList(SaveData.getLocalVideoList());
+            localVideoAdapter.notifyDataSetChanged();
+        }
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -125,6 +131,7 @@ public class LocalVideoFragment extends Fragment {
             Log.i("trinity18", "onResume: "+localVideoAdapter.getCount()+"//"+SaveData.getLocalVideoList().size());
             if(localVideoAdapter.getCount()==0){
                 localVideoAdapter.setVideoList(SaveData.getLocalVideoList());
+                localVideoAdapter.notifyDataSetChanged();
             }
 
         }

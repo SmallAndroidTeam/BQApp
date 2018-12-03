@@ -100,6 +100,7 @@ public class LocalMusicFragment extends Fragment implements View.OnTouchListener
         }else{
             MusicUtils.initMusicList();
             List<Music>  musicList=MusicUtils.sMusicList;
+            
             if(musicList.size()>0){
                 MusicService.initMusicService(musicList,0);
                 setMusicAlbumPosition(0);
